@@ -12,11 +12,17 @@
     box-shadow: black 2px 2px 0 0;
 }
 
+.board__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 40px;
+}
+
 .board__tile {
     width: 32px;
     height: 32px;
-    border-radius: 4px;
     border: 1px solid black;
+    border-radius: 4px;
     background-color: oklch(0.951 0.026 236.824);
     box-shadow: black 1px 1px 0 0;
     transition: background-color 0.1s ease;
