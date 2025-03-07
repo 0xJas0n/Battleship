@@ -1,0 +1,14 @@
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100dvh;
+    padding: 40px;
+    background-color: oklch(0.951 0.026 236.824);
+}
+
+.main__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 40px;
+}
