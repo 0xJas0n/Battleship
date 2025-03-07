@@ -9,5 +9,7 @@ public class Tile {
     @Getter
     private boolean isHit = false;
 
-    public Tile(int index) {}
+    public Tile(int index) {
+        this.index = index;
+    }
 }
