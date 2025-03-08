@@ -2,6 +2,10 @@
 
 This guide will help you set up and run the application.
 
+## Usage
+
+The game will be available on [localhost:8080](http://localhost:8080)
+
 ## Prerequisites
 
 - [Docker](https://www.docker.com/get-started)
