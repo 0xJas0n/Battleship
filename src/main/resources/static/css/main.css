@@ -2,8 +2,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
     row-gap: 80px;
+    column-gap: 200px;
     height: 100dvh;
     padding: 40px;
     background-color: oklch(0.951 0.026 236.824);

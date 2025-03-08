@@ -10,11 +10,6 @@ public class BattleshipApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(BattleshipApplication.class, args);
-
-        GameStateManager gameStateManager = new GameStateManager();
-        gameStateManager.update();
-        gameStateManager.setState(GameState.SETUP);
-        gameStateManager.update();
     }
 
 }

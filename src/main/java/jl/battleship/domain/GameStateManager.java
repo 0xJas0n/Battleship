@@ -3,10 +3,18 @@ package jl.battleship.domain;
 import jl.battleship.domain.enums.GameState;
 
 public class GameStateManager {
+    private static GameStateManager instance;
     private GameState currentGameState;
 
-    public GameStateManager() {
+    private GameStateManager() {
         currentGameState = GameState.CREATE;
+    }
+
+    public static GameStateManager getInstance() {
+        if (instance == null) {
+            instance = new GameStateManager();
+        }
+        return instance;
     }
 
     public GameState getState() {
