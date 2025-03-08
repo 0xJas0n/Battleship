@@ -24,14 +24,19 @@
     border: 1px solid black;
     border-radius: 4px;
     background-color: oklch(0.951 0.026 236.824);
+    cursor: pointer;
     box-shadow: black 1px 1px 0 0;
     transition: background-color 0.1s ease;
 
     .board__left &:hover {
         background-color: oklch(0.828 0.111 230.318);
+        transform: translateY(1px);
+        box-shadow: black 0 0 0 0;
     }
 
     .board__right &:hover {
         background-color: oklch(0.712 0.194 13.428);
+        transform: translateY(1px);
+        box-shadow: black 0 0 0 0;
     }
 }
