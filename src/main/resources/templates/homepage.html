@@ -19,8 +19,15 @@
 <body>
 <main class="main">
     <div class="menu">
-        <button class="api-button button" data-endpoint="/game/create" data-method="POST">Create Game</button>
-        <button class="api-button button" data-endpoint="/player/create" data-method="POST" data-body='{"name": "Jason"}'>Add player</button>
+        <button class="api-button button" data-endpoint="/game/create" data-method="POST" id="createGameButton">Create
+            Game
+        </button>
+
+        <input id="playerName" name="name" placeholder="Player Name" required type="text">
+        <button class="api-button button" data-body='{"name": "Jason"}' data-endpoint="/player/create"
+                data-method="POST"
+                id="addPlayerButton">Add player
+        </button>
     </div>
 
     <div class="game">
@@ -234,5 +241,6 @@
     </div>
 </main>
 <script th:src="@{/js/api-button.js}"></script>
+<script th:src="@{/js/player-name.js}"></script>
 </body>
 </html>
