@@ -1,7 +1,7 @@
 package jl.battleship.domain;
 
-import jl.battleship.domain.enums.GameState;
 import jl.battleship.application.interfaces.IGameStateManager;
+import jl.battleship.domain.enums.GameState;
 
 public class GameStateManager implements IGameStateManager {
     private static GameStateManager instance;

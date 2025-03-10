@@ -3,7 +3,7 @@ package jl.battleship.domain;
 import lombok.Getter;
 
 public class Cell {
-    private int index;
+    private final int index;
     @Getter
     private boolean occupied = false;
     @Getter

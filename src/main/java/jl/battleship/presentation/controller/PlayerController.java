@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class PlayerController {
-    private final IPlayerService playerService;
     private static final String CREATE_PLAYER_URL = "/player/create";
+    private final IPlayerService playerService;
 
     public PlayerController(IPlayerService playerService) {
         this.playerService = playerService;

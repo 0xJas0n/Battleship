@@ -31,13 +31,6 @@ public class Game {
     @JoinColumn(name = "winner_id")
     private Player winner;
 
-    public enum GameStatus {
-        WAITING_FOR_PLAYER,
-        PLACING_SHIPS,
-        IN_PROGRESS,
-        FINISHED
-    }
-
     public Game() {
         this.status = GameStatus.WAITING_FOR_PLAYER;
     }
@@ -45,5 +38,12 @@ public class Game {
     public void setWinner(Player winner) {
         this.winner = winner;
         this.status = GameStatus.FINISHED;
+    }
+
+    public enum GameStatus {
+        WAITING_FOR_PLAYER,
+        PLACING_SHIPS,
+        IN_PROGRESS,
+        FINISHED
     }
 }

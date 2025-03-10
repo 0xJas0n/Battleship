@@ -22,6 +22,7 @@ public class Ship {
         SUBMARINE(3),
         PATROL_BOAT(2);
 
-        ShipType(int size) {}
+        ShipType(int size) {
+        }
     }
 }
