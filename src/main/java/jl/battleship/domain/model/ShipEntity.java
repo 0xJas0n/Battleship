@@ -6,7 +6,7 @@ import lombok.Getter;
 @Entity
 @Table(name = "ships")
 @Getter
-public class Ship {
+public class ShipEntity {
     @Id
     @GeneratedValue
     private Long id;

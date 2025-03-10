@@ -1,10 +1,10 @@
 package jl.battleship.application.dto;
 
-import jl.battleship.domain.model.Player;
+import jl.battleship.domain.model.PlayerEntity;
 
 public record CreateGameDTO(
         long gameId,
-        Player player1,
-        Player player2
+        PlayerEntity player1,
+        PlayerEntity player2
 ) {
 }

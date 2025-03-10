@@ -7,7 +7,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "games")
 @Getter
-public class Game {
+public class GameEntity {
     @Id
     @GeneratedValue
     private Long id;
@@ -15,12 +15,12 @@ public class Game {
     @Setter
     @ManyToOne
     @JoinColumn(name = "player1_id")
-    private Player player1;
+    private PlayerEntity player1;
 
     @Setter
     @ManyToOne
     @JoinColumn(name = "player2_id")
-    private Player player2;
+    private PlayerEntity player2;
 
     @Setter
     @Enumerated(EnumType.STRING)
@@ -29,13 +29,13 @@ public class Game {
 
     @ManyToOne
     @JoinColumn(name = "winner_id")
-    private Player winner;
+    private PlayerEntity winner;
 
-    public Game() {
+    public GameEntity() {
         this.status = GameStatus.WAITING_FOR_PLAYER;
     }
 
-    public void setWinner(Player winner) {
+    public void setWinner(PlayerEntity winner) {
         this.winner = winner;
         this.status = GameStatus.FINISHED;
     }
