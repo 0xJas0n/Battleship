@@ -2,8 +2,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    row-gap: 80px;
+    flex-wrap: wrap;
     column-gap: 200px;
+    row-gap: 80px;
     height: 100dvh;
     padding: 40px;
     background-color: oklch(0.951 0.026 236.824);
