@@ -1,4 +1,4 @@
-package jl.battleship.domain.interfaces;
+package jl.battleship.application.interfaces;
 
 import jl.battleship.domain.enums.GameState;
 

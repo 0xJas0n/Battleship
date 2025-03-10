@@ -6,11 +6,8 @@ import lombok.Getter;
 @Entity
 @Table(name = "boards")
 @Getter
-public class Boards {
+public class Board {
     @Id
     @GeneratedValue
     private Long id;
-
-    @Column(name = "name")
-    private String name;
 }

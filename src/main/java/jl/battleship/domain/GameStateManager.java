@@ -1,7 +1,7 @@
 package jl.battleship.domain;
 
 import jl.battleship.domain.enums.GameState;
-import jl.battleship.domain.interfaces.IGameStateManager;
+import jl.battleship.application.interfaces.IGameStateManager;
 
 public class GameStateManager implements IGameStateManager {
     private static GameStateManager instance;
@@ -31,10 +31,6 @@ public class GameStateManager implements IGameStateManager {
         switch (currentGameState) {
             case CREATE:
                 System.out.println("[STATE] Create game");
-                Board map1 = new Board();
-                Board map2 = new Board();
-                Player player1 = new Player("Jason", map1);
-                Player player2 = new Player("CPU", map2);
                 break;
             case SETUP:
                 System.out.println("[STATE] Setup game");

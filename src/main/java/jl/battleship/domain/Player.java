@@ -1,11 +1,13 @@
 package jl.battleship.domain;
 
+import lombok.Setter;
+
 public class Player {
     private String name;
-    private Board map;
+    @Setter
+    private Board board;
 
-    public Player(String name, Board map) {
+    public Player(String name) {
         this.name = name;
-        this.map = map;
     }
 }
