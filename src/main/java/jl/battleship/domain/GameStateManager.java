@@ -29,8 +29,8 @@ public class GameStateManager {
         switch (currentGameState) {
             case CREATE:
                 System.out.println("[STATE] Create game");
-                Map map1 = new Map();
-                Map map2 = new Map();
+                Board map1 = new Board();
+                Board map2 = new Board();
                 Player player1 = new Player("Jason", map1);
                 Player player2 = new Player("CPU", map2);
                 break;

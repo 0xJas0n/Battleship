@@ -2,14 +2,14 @@ package jl.battleship.domain;
 
 import lombok.Getter;
 
-public class Tile {
+public class Cell {
     private int index;
     @Getter
     private boolean occupied = false;
     @Getter
     private boolean isHit = false;
 
-    public Tile(int index) {
+    public Cell(int index) {
         this.index = index;
     }
 }
