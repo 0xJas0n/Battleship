@@ -1,5 +1,6 @@
 package jl.battleship.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -14,9 +15,12 @@ public class BoardEntity {
     @Id
     @GeneratedValue
     private Long id;
+
     @ElementCollection
     private List<CellEntity> cells;
+
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<ShipEntity> ships = new ArrayList<>();
 
     public BoardEntity() {
@@ -36,5 +40,20 @@ public class BoardEntity {
     public void addShip(ShipEntity ship) {
         ship.setBoard(this);
         ships.add(ship);
+
+        int startRow = ship.getStartRow();
+        int startCol = ship.getStartCol();
+        int shipSize = ship.getShipType().getSize();
+        boolean isHorizontal = ship.isHorizontal();
+
+        for (int i = 0; i < shipSize; i++) {
+            int row = isHorizontal ? startRow : startRow + i;
+            int col = isHorizontal ? startCol + i : startCol;
+
+            cells.stream()
+                    .filter(cell -> cell.getRow() == row && cell.getCol() == col)
+                    .findFirst()
+                    .ifPresent(cell -> cell.setShip(true));
+        }
     }
 }

@@ -24,4 +24,12 @@ public class PlayerService {
         player.setBoard(board);
         return playerRepository.save(player);
     }
+
+    public PlayerEntity getPlayer(Long playerId) {
+        return playerRepository.findById(playerId.intValue()).orElse(null);
+    }
+
+    public void savePlayer(PlayerEntity player) {
+        playerRepository.save(player);
+    }
 }

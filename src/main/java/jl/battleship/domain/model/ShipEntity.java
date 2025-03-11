@@ -1,5 +1,6 @@
 package jl.battleship.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,10 +15,12 @@ public class ShipEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "ship_type", nullable = false)
+    @Setter
     private ShipType shipType;
     @Setter
     @ManyToOne
     @JoinColumn(name = "board_id", nullable = false)
+    @JsonBackReference
     private BoardEntity board;
     @Setter
     @Column(name = "start_row", nullable = false)
@@ -36,7 +39,14 @@ public class ShipEntity {
         SUBMARINE(3),
         PATROL_BOAT(2);
 
+        private final int size;
+
         ShipType(int size) {
+            this.size = size;
+        }
+
+        public int getSize() {
+            return size;
         }
     }
 }
