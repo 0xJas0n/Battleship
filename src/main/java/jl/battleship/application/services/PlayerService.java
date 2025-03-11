@@ -1,20 +1,27 @@
 package jl.battleship.application.services;
 
-import jl.battleship.application.dto.CreatePlayerDTO;
-import jl.battleship.application.interfaces.IPlayerService;
-import jl.battleship.domain.Board;
-import jl.battleship.domain.Player;
+import jl.battleship.domain.model.BoardEntity;
+import jl.battleship.domain.model.PlayerEntity;
+import jl.battleship.persistence.BoardRepository;
+import jl.battleship.persistence.PlayerRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PlayerService implements IPlayerService {
+public class PlayerService {
+    private final PlayerRepository playerRepository;
+    private final BoardRepository boardRepository;
 
-    @Override
-    public CreatePlayerDTO createPlayer(String name) {
-        Player player = new Player(name);
-        Board board = new Board();
+    public PlayerService(PlayerRepository playerRepository, BoardRepository boardRepository) {
+        this.playerRepository = playerRepository;
+        this.boardRepository = boardRepository;
+    }
+
+    public PlayerEntity createPlayer(String name) {
+        PlayerEntity player = new PlayerEntity();
+        player.setName(name);
+        BoardEntity board = new BoardEntity();
+        board = boardRepository.save(board);
         player.setBoard(board);
-
-        return new CreatePlayerDTO(player, board);
+        return playerRepository.save(player);
     }
 }

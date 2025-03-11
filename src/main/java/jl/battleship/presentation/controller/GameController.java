@@ -1,6 +1,5 @@
 package jl.battleship.presentation.controller;
 
-import jl.battleship.application.dto.CreateGameDTO;
 import jl.battleship.application.services.GameService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +14,7 @@ public class GameController {
     }
 
     @PostMapping(CREATE_GAME_URL)
-    public CreateGameDTO createGame() {
+    public Long createGame() {
         System.out.println("[GAME] Create...");
 
         return this.gameService.createGame();

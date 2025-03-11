@@ -27,17 +27,8 @@ public class GameEntity {
     @Column(name = "status", nullable = false)
     private GameStatus status;
 
-    @ManyToOne
-    @JoinColumn(name = "winner_id")
-    private PlayerEntity winner;
-
     public GameEntity() {
         this.status = GameStatus.WAITING_FOR_PLAYER;
-    }
-
-    public void setWinner(PlayerEntity winner) {
-        this.winner = winner;
-        this.status = GameStatus.FINISHED;
     }
 
     public enum GameStatus {

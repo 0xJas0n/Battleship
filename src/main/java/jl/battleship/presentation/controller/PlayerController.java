@@ -1,22 +1,30 @@
 package jl.battleship.presentation.controller;
 
-import jl.battleship.application.dto.CreatePlayerDTO;
-import jl.battleship.application.interfaces.IPlayerService;
+import jl.battleship.application.services.GameService;
+import jl.battleship.application.services.PlayerService;
+import jl.battleship.domain.model.GameEntity;
+import jl.battleship.domain.model.PlayerEntity;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class PlayerController {
     private static final String CREATE_PLAYER_URL = "/player/create";
-    private final IPlayerService playerService;
+    private final PlayerService playerService;
+    private final GameService gameService;
 
-    public PlayerController(IPlayerService playerService) {
+    public PlayerController(PlayerService playerService, GameService gameService) {
         this.playerService = playerService;
+        this.gameService = gameService;
     }
 
     @PostMapping(CREATE_PLAYER_URL)
-    public CreatePlayerDTO createPlayer(@RequestBody String name) {
-        return this.playerService.createPlayer(name);
+    public GameEntity createPlayer(@RequestParam String name, @RequestParam Long gameId) throws Exception {
+        PlayerEntity player = this.playerService.createPlayer(name);
+        GameEntity game = this.gameService.getGame(gameId);
+        this.gameService.addPlayer(game.getId(), player);
+
+        return game;
     }
 }
