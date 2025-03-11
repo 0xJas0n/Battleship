@@ -9,3 +9,8 @@
     padding: 40px;
     background-color: oklch(0.951 0.026 236.824);
 }
+
+.main__info {
+    margin-bottom: 32px;
+    text-align: center;
+}

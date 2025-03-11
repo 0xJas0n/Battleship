@@ -13,6 +13,7 @@
 }
 
 .board__grid {
+    position: relative;
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 40px;
@@ -24,19 +25,31 @@
     border: 1px solid black;
     border-radius: 4px;
     background-color: oklch(0.951 0.026 236.824);
-    cursor: pointer;
     box-shadow: black 1px 1px 0 0;
     transition: background-color 0.1s ease;
+    cursor: pointer;
 
     .board__left &:hover {
         background-color: oklch(0.828 0.111 230.318);
-        transform: translateY(1px);
         box-shadow: black 0 0 0 0;
+        transform: translateY(1px);
     }
 
     .board__right &:hover {
         background-color: oklch(0.712 0.194 13.428);
-        transform: translateY(1px);
         box-shadow: black 0 0 0 0;
+        transform: translateY(1px);
     }
+}
+
+.ship {
+    box-sizing: border-box;
+    position: absolute;
+    border: 1px solid black;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    pointer-events: none; /* Allow clicks to pass through to the grid */
+}
+
+.shot {
+    background-color: red;
 }

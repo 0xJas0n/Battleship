@@ -8,6 +8,7 @@
     <link rel="stylesheet" th:href="@{/css/board.css}">
     <link rel="stylesheet" th:href="@{/css/button.css}">
     <link rel="stylesheet" th:href="@{/css/menu.css}">
+    <link rel="stylesheet" th:href="@{/css/controls.css}">
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
@@ -18,216 +19,180 @@
 
 <body>
 <main class="main">
-    <div class="game">
-        <h1 class="state">Place your ships</h1>
+    <div>
+        <h2 id="turn-indicator" class="main__info">Waiting for setup...</h2>
         <div class="board__grid">
             <div class="board board__left">
-                <button class="board__tile" data-index="0"></button>
-                <button class="board__tile" data-index="1"></button>
-                <button class="board__tile" data-index="2"></button>
-                <button class="board__tile" data-index="3"></button>
-                <button class="board__tile" data-index="4"></button>
-                <button class="board__tile" data-index="5"></button>
-                <button class="board__tile" data-index="6"></button>
-                <button class="board__tile" data-index="7"></button>
-                <button class="board__tile" data-index="8"></button>
-                <button class="board__tile" data-index="9"></button>
-                <button class="board__tile" data-index="10"></button>
-                <button class="board__tile" data-index="11"></button>
-                <button class="board__tile" data-index="12"></button>
-                <button class="board__tile" data-index="13"></button>
-                <button class="board__tile" data-index="14"></button>
-                <button class="board__tile" data-index="15"></button>
-                <button class="board__tile" data-index="16"></button>
-                <button class="board__tile" data-index="17"></button>
-                <button class="board__tile" data-index="18"></button>
-                <button class="board__tile" data-index="19"></button>
-                <button class="board__tile" data-index="20"></button>
-                <button class="board__tile" data-index="21"></button>
-                <button class="board__tile" data-index="22"></button>
-                <button class="board__tile" data-index="23"></button>
-                <button class="board__tile" data-index="24"></button>
-                <button class="board__tile" data-index="25"></button>
-                <button class="board__tile" data-index="26"></button>
-                <button class="board__tile" data-index="27"></button>
-                <button class="board__tile" data-index="28"></button>
-                <button class="board__tile" data-index="29"></button>
-                <button class="board__tile" data-index="30"></button>
-                <button class="board__tile" data-index="31"></button>
-                <button class="board__tile" data-index="32"></button>
-                <button class="board__tile" data-index="33"></button>
-                <button class="board__tile" data-index="34"></button>
-                <button class="board__tile" data-index="35"></button>
-                <button class="board__tile" data-index="36"></button>
-                <button class="board__tile" data-index="37"></button>
-                <button class="board__tile" data-index="38"></button>
-                <button class="board__tile" data-index="39"></button>
-                <button class="board__tile" data-index="40"></button>
-                <button class="board__tile" data-index="41"></button>
-                <button class="board__tile" data-index="42"></button>
-                <button class="board__tile" data-index="43"></button>
-                <button class="board__tile" data-index="44"></button>
-                <button class="board__tile" data-index="45"></button>
-                <button class="board__tile" data-index="46"></button>
-                <button class="board__tile" data-index="47"></button>
-                <button class="board__tile" data-index="48"></button>
-                <button class="board__tile" data-index="49"></button>
-                <button class="board__tile" data-index="50"></button>
-                <button class="board__tile" data-index="51"></button>
-                <button class="board__tile" data-index="52"></button>
-                <button class="board__tile" data-index="53"></button>
-                <button class="board__tile" data-index="54"></button>
-                <button class="board__tile" data-index="55"></button>
-                <button class="board__tile" data-index="56"></button>
-                <button class="board__tile" data-index="57"></button>
-                <button class="board__tile" data-index="58"></button>
-                <button class="board__tile" data-index="59"></button>
-                <button class="board__tile" data-index="60"></button>
-                <button class="board__tile" data-index="61"></button>
-                <button class="board__tile" data-index="62"></button>
-                <button class="board__tile" data-index="63"></button>
-                <button class="board__tile" data-index="64"></button>
-                <button class="board__tile" data-index="65"></button>
-                <button class="board__tile" data-index="66"></button>
-                <button class="board__tile" data-index="67"></button>
-                <button class="board__tile" data-index="68"></button>
-                <button class="board__tile" data-index="69"></button>
-                <button class="board__tile" data-index="70"></button>
-                <button class="board__tile" data-index="71"></button>
-                <button class="board__tile" data-index="72"></button>
-                <button class="board__tile" data-index="73"></button>
-                <button class="board__tile" data-index="74"></button>
-                <button class="board__tile" data-index="75"></button>
-                <button class="board__tile" data-index="76"></button>
-                <button class="board__tile" data-index="77"></button>
-                <button class="board__tile" data-index="78"></button>
-                <button class="board__tile" data-index="79"></button>
-                <button class="board__tile" data-index="80"></button>
-                <button class="board__tile" data-index="81"></button>
-                <button class="board__tile" data-index="82"></button>
-                <button class="board__tile" data-index="83"></button>
-                <button class="board__tile" data-index="84"></button>
-                <button class="board__tile" data-index="85"></button>
-                <button class="board__tile" data-index="86"></button>
-                <button class="board__tile" data-index="87"></button>
-                <button class="board__tile" data-index="88"></button>
-                <button class="board__tile" data-index="89"></button>
-                <button class="board__tile" data-index="90"></button>
-                <button class="board__tile" data-index="91"></button>
-                <button class="board__tile" data-index="92"></button>
-                <button class="board__tile" data-index="93"></button>
-                <button class="board__tile" data-index="94"></button>
-                <button class="board__tile" data-index="95"></button>
-                <button class="board__tile" data-index="96"></button>
-                <button class="board__tile" data-index="97"></button>
-                <button class="board__tile" data-index="98"></button>
-                <button class="board__tile" data-index="99"></button>
+                <button th:each="i : ${#numbers.sequence(0, 99)}" class="board__tile" th:data-index="${i}"></button>
             </div>
             <div class="board board__right">
-                <button class="board__tile" data-index="0"></button>
-                <button class="board__tile" data-index="1"></button>
-                <button class="board__tile" data-index="2"></button>
-                <button class="board__tile" data-index="3"></button>
-                <button class="board__tile" data-index="4"></button>
-                <button class="board__tile" data-index="5"></button>
-                <button class="board__tile" data-index="6"></button>
-                <button class="board__tile" data-index="7"></button>
-                <button class="board__tile" data-index="8"></button>
-                <button class="board__tile" data-index="9"></button>
-                <button class="board__tile" data-index="10"></button>
-                <button class="board__tile" data-index="11"></button>
-                <button class="board__tile" data-index="12"></button>
-                <button class="board__tile" data-index="13"></button>
-                <button class="board__tile" data-index="14"></button>
-                <button class="board__tile" data-index="15"></button>
-                <button class="board__tile" data-index="16"></button>
-                <button class="board__tile" data-index="17"></button>
-                <button class="board__tile" data-index="18"></button>
-                <button class="board__tile" data-index="19"></button>
-                <button class="board__tile" data-index="20"></button>
-                <button class="board__tile" data-index="21"></button>
-                <button class="board__tile" data-index="22"></button>
-                <button class="board__tile" data-index="23"></button>
-                <button class="board__tile" data-index="24"></button>
-                <button class="board__tile" data-index="25"></button>
-                <button class="board__tile" data-index="26"></button>
-                <button class="board__tile" data-index="27"></button>
-                <button class="board__tile" data-index="28"></button>
-                <button class="board__tile" data-index="29"></button>
-                <button class="board__tile" data-index="30"></button>
-                <button class="board__tile" data-index="31"></button>
-                <button class="board__tile" data-index="32"></button>
-                <button class="board__tile" data-index="33"></button>
-                <button class="board__tile" data-index="34"></button>
-                <button class="board__tile" data-index="35"></button>
-                <button class="board__tile" data-index="36"></button>
-                <button class="board__tile" data-index="37"></button>
-                <button class="board__tile" data-index="38"></button>
-                <button class="board__tile" data-index="39"></button>
-                <button class="board__tile" data-index="40"></button>
-                <button class="board__tile" data-index="41"></button>
-                <button class="board__tile" data-index="42"></button>
-                <button class="board__tile" data-index="43"></button>
-                <button class="board__tile" data-index="44"></button>
-                <button class="board__tile" data-index="45"></button>
-                <button class="board__tile" data-index="46"></button>
-                <button class="board__tile" data-index="47"></button>
-                <button class="board__tile" data-index="48"></button>
-                <button class="board__tile" data-index="49"></button>
-                <button class="board__tile" data-index="50"></button>
-                <button class="board__tile" data-index="51"></button>
-                <button class="board__tile" data-index="52"></button>
-                <button class="board__tile" data-index="53"></button>
-                <button class="board__tile" data-index="54"></button>
-                <button class="board__tile" data-index="55"></button>
-                <button class="board__tile" data-index="56"></button>
-                <button class="board__tile" data-index="57"></button>
-                <button class="board__tile" data-index="58"></button>
-                <button class="board__tile" data-index="59"></button>
-                <button class="board__tile" data-index="60"></button>
-                <button class="board__tile" data-index="61"></button>
-                <button class="board__tile" data-index="62"></button>
-                <button class="board__tile" data-index="63"></button>
-                <button class="board__tile" data-index="64"></button>
-                <button class="board__tile" data-index="65"></button>
-                <button class="board__tile" data-index="66"></button>
-                <button class="board__tile" data-index="67"></button>
-                <button class="board__tile" data-index="68"></button>
-                <button class="board__tile" data-index="69"></button>
-                <button class="board__tile" data-index="70"></button>
-                <button class="board__tile" data-index="71"></button>
-                <button class="board__tile" data-index="72"></button>
-                <button class="board__tile" data-index="73"></button>
-                <button class="board__tile" data-index="74"></button>
-                <button class="board__tile" data-index="75"></button>
-                <button class="board__tile" data-index="76"></button>
-                <button class="board__tile" data-index="77"></button>
-                <button class="board__tile" data-index="78"></button>
-                <button class="board__tile" data-index="79"></button>
-                <button class="board__tile" data-index="80"></button>
-                <button class="board__tile" data-index="81"></button>
-                <button class="board__tile" data-index="82"></button>
-                <button class="board__tile" data-index="83"></button>
-                <button class="board__tile" data-index="84"></button>
-                <button class="board__tile" data-index="85"></button>
-                <button class="board__tile" data-index="86"></button>
-                <button class="board__tile" data-index="87"></button>
-                <button class="board__tile" data-index="88"></button>
-                <button class="board__tile" data-index="89"></button>
-                <button class="board__tile" data-index="90"></button>
-                <button class="board__tile" data-index="91"></button>
-                <button class="board__tile" data-index="92"></button>
-                <button class="board__tile" data-index="93"></button>
-                <button class="board__tile" data-index="94"></button>
-                <button class="board__tile" data-index="95"></button>
-                <button class="board__tile" data-index="96"></button>
-                <button class="board__tile" data-index="97"></button>
-                <button class="board__tile" data-index="98"></button>
-                <button class="board__tile" data-index="99"></button>
+                <button th:each="i : ${#numbers.sequence(0, 99)}" class="board__tile" th:data-index="${i}"></button>
             </div>
         </div>
     </div>
+
+    <div class="controls">
+        <button class="control-button button" onclick="createGame()">Create Game</button>
+        <button class="control-button button" onclick="createPlayer()">Create Player</button>
+        <button class="control-button button" onclick="placeShip()">Place Ship</button>
+        <button class="control-button button" onclick="shootCell()">Shoot Cell</button>
+    </div>
 </main>
-<!-- <script th:src="@{/js/api-button.js}"></script> -->
+
+<script>
+    let gameId = null;
+    let playerId = null;
+    let currentPlayerTurn = null;
+    let player1Id = null;
+    let player2Id = null;
+    let player1Name = null;
+    let player2Name = null;
+    let player1ShipsPlaced = false;
+    let player2ShipsPlaced = false;
+
+    function updateTurnIndicator() {
+        const turnIndicator = document.getElementById('turn-indicator');
+        if (!player1ShipsPlaced || !player2ShipsPlaced) {
+            turnIndicator.textContent = "Waiting for setup...";
+        } else if (currentPlayerTurn === player1Id) {
+            turnIndicator.textContent = `${player1Name}'s turn!`;
+        } else if (currentPlayerTurn === player2Id) {
+            turnIndicator.textContent = `${player2Name}'s turn!`;
+        }
+    }
+
+    function createGame() {
+        fetch('/game/create', {
+            method: 'POST'
+        })
+            .then(response => response.json())
+            .then(data => {
+                gameId = data;
+                console.log('Game created with ID:', gameId);
+                currentPlayerTurn = null;
+                player1ShipsPlaced = false;
+                player2ShipsPlaced = false;
+                updateTurnIndicator();
+            })
+            .catch(error => console.error('Error creating game:', error));
+    }
+
+    function createPlayer() {
+        const name = prompt("Enter your name:");
+        if (name && gameId) {
+            fetch(`/player/create/${gameId}/${name}`, {
+                method: 'POST'
+            })
+                .then(response => response.json())
+                .then(data => {
+                    playerId = data.id;
+                    if (!player1Id) {
+                        player1Id = playerId;
+                        player1Name = name;
+                        alert("Player 1 created. Now place your ships.");
+                    } else if (!player2Id) {
+                        player2Id = playerId;
+                        player2Name = name;
+                        alert("Player 2 created. Now place your ships.");
+                    }
+                    console.log('Player created with ID:', playerId);
+                    updateTurnIndicator();
+                })
+                .catch(error => console.error('Error creating player:', error));
+        } else {
+            alert("Please create a game first and enter a name.");
+        }
+    }
+
+    function placeShip() {
+        if (playerId) {
+            const shipType = prompt("Enter ship type (CARRIER, BATTLESHIP, DESTROYER, SUBMARINE, PATROL_BOAT):");
+            const row = prompt("Enter starting row (0-9):");
+            const col = prompt("Enter starting column (0-9):");
+            const isHorizontal = confirm("Is the ship horizontal? (OK for Yes, Cancel for No)");
+
+            if (shipType && row && col) {
+                fetch(`/player/${playerId}/placeShip/${shipType}/${row}/${col}/${isHorizontal}`, {
+                    method: 'POST'
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Ship placed:', data);
+                        if (playerId === player1Id) {
+                            player1ShipsPlaced = true;
+                        } else if (playerId === player2Id) {
+                            player2ShipsPlaced = true;
+                        }
+                        if (player1ShipsPlaced && player2ShipsPlaced) {
+                            currentPlayerTurn = player1Id;
+                            updateTurnIndicator();
+                            alert("All ships placed. Player 1 starts shooting!");
+                        }
+
+                        addShipToBoard(shipType, row, col, isHorizontal);
+                    })
+                    .catch(error => console.error('Error placing ship:', error));
+            }
+        } else {
+            alert("Please create a player first.");
+        }
+    }
+
+    function addShipToBoard(shipType, row, col, isHorizontal) {
+        const shipSize = {
+            CARRIER: 5,
+            BATTLESHIP: 4,
+            DESTROYER: 3,
+            SUBMARINE: 3,
+            PATROL_BOAT: 2
+        }[shipType.toUpperCase()];
+
+        const cellSize = 32;
+        const gap = 4;
+        const padding = 22;
+        const shipDiv = document.createElement('div');
+
+        shipDiv.classList.add('ship');
+        shipDiv.style.width = isHorizontal ? `${shipSize * cellSize + (shipSize - 1) * 4}px` : `${cellSize}px`;
+        shipDiv.style.height = isHorizontal ? `${cellSize}px` : `${shipSize * cellSize + (shipSize - 1) * 4}px`;
+
+        const left = padding + col * (cellSize + gap);
+        const top = padding + row * (cellSize + gap);
+
+        shipDiv.style.left = `${left}px`;
+        shipDiv.style.top = `${top}px`;
+
+        const board = document.querySelector('.board__left');
+        board.appendChild(shipDiv);
+    }
+
+    function shootCell() {
+        if (gameId && player1ShipsPlaced && player2ShipsPlaced) {
+            const row = prompt("Enter row to shoot (0-9):");
+            const col = prompt("Enter column to shoot (0-9):");
+
+            if (row && col) {
+                const shootingPlayerId = currentPlayerTurn;
+                fetch(`/game/${gameId}/player/${shootingPlayerId}/shoot/${row}/${col}`, {
+                    method: 'POST'
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Cell shot:', data);
+                        const cell = document.querySelector(`.board__right .board__tile[data-index="${parseInt(row) * 10 + parseInt(col)}"]`);
+                        if (cell) {
+                            cell.classList.add('shot');
+                        }
+
+                        currentPlayerTurn = (currentPlayerTurn === player1Id) ? player2Id : player1Id;
+                        updateTurnIndicator();
+                    })
+                    .catch(error => console.error('Error shooting cell:', error));
+            }
+        } else {
+            alert("The game is not ready or ships are not placed.");
+        }
+    }
+</script>
 </body>
 </html>
