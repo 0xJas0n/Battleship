@@ -20,13 +20,13 @@
 <body>
 <main class="main">
     <div>
-        <h2 id="turn-indicator" class="main__info">Waiting for setup...</h2>
+        <h2 class="main__info" id="turn-indicator">Waiting for setup...</h2>
         <div class="board__grid">
             <div class="board board__left">
-                <button th:each="i : ${#numbers.sequence(0, 99)}" class="board__tile" th:data-index="${i}"></button>
+                <button class="board__tile" th:data-index="${i}" th:each="i : ${#numbers.sequence(0, 99)}"></button>
             </div>
             <div class="board board__right">
-                <button th:each="i : ${#numbers.sequence(0, 99)}" class="board__tile" th:data-index="${i}"></button>
+                <button class="board__tile" th:data-index="${i}" th:each="i : ${#numbers.sequence(0, 99)}"></button>
             </div>
         </div>
     </div>
@@ -35,7 +35,6 @@
         <button class="control-button button" onclick="createGame()">Create Game</button>
         <button class="control-button button" onclick="createPlayer()">Create Player</button>
         <button class="control-button button" onclick="placeShip()">Place Ship</button>
-        <button class="control-button button" onclick="shootCell()">Shoot Cell</button>
     </div>
 </main>
 
@@ -50,10 +49,21 @@
     let player1ShipsPlaced = false;
     let player2ShipsPlaced = false;
 
+    document.addEventListener('DOMContentLoaded', () => {
+        const rightBoardTiles = document.querySelectorAll('.board__right .board__tile');
+
+        rightBoardTiles.forEach(tile => {
+            tile.addEventListener('click', () => {
+                const index = tile.getAttribute('data-index');
+                shootCell(index);
+            });
+        });
+    });
+
     function updateTurnIndicator() {
         const turnIndicator = document.getElementById('turn-indicator');
         if (!player1ShipsPlaced || !player2ShipsPlaced) {
-            turnIndicator.textContent = "Waiting for setup...";
+            turnIndicator.textContent = 'Waiting for setup...';
         } else if (currentPlayerTurn === player1Id) {
             turnIndicator.textContent = `${player1Name}'s turn!`;
         } else if (currentPlayerTurn === player2Id) {
@@ -78,7 +88,7 @@
     }
 
     function createPlayer() {
-        const name = prompt("Enter your name:");
+        const name = prompt('Enter your name:');
         if (name && gameId) {
             fetch(`/player/create/${gameId}/${name}`, {
                 method: 'POST'
@@ -89,27 +99,27 @@
                     if (!player1Id) {
                         player1Id = playerId;
                         player1Name = name;
-                        alert("Player 1 created. Now place your ships.");
+                        alert('Player 1 created. Now place your ships.');
                     } else if (!player2Id) {
                         player2Id = playerId;
                         player2Name = name;
-                        alert("Player 2 created. Now place your ships.");
+                        alert('Player 2 created. Now place your ships.');
                     }
                     console.log('Player created with ID:', playerId);
                     updateTurnIndicator();
                 })
                 .catch(error => console.error('Error creating player:', error));
         } else {
-            alert("Please create a game first and enter a name.");
+            alert('Please create a game first and enter a name.');
         }
     }
 
     function placeShip() {
         if (playerId) {
-            const shipType = prompt("Enter ship type (CARRIER, BATTLESHIP, DESTROYER, SUBMARINE, PATROL_BOAT):");
-            const row = prompt("Enter starting row (0-9):");
-            const col = prompt("Enter starting column (0-9):");
-            const isHorizontal = confirm("Is the ship horizontal? (OK for Yes, Cancel for No)");
+            const shipType = prompt('Enter ship type (CARRIER, BATTLESHIP, DESTROYER, SUBMARINE, PATROL_BOAT):');
+            const row = prompt('Enter starting row (0-9):');
+            const col = prompt('Enter starting column (0-9):');
+            const isHorizontal = confirm('Is the ship horizontal? (OK for Yes, Cancel for No)');
 
             if (shipType && row && col) {
                 fetch(`/player/${playerId}/placeShip/${shipType}/${row}/${col}/${isHorizontal}`, {
@@ -126,7 +136,7 @@
                         if (player1ShipsPlaced && player2ShipsPlaced) {
                             currentPlayerTurn = player1Id;
                             updateTurnIndicator();
-                            alert("All ships placed. Player 1 starts shooting!");
+                            alert('All ships placed. Player 1 starts shooting!');
                         }
 
                         addShipToBoard(shipType, row, col, isHorizontal);
@@ -134,7 +144,7 @@
                     .catch(error => console.error('Error placing ship:', error));
             }
         } else {
-            alert("Please create a player first.");
+            alert('Please create a player first.');
         }
     }
 
@@ -166,31 +176,29 @@
         board.appendChild(shipDiv);
     }
 
-    function shootCell() {
+    function shootCell(index) {
         if (gameId && player1ShipsPlaced && player2ShipsPlaced) {
-            const row = prompt("Enter row to shoot (0-9):");
-            const col = prompt("Enter column to shoot (0-9):");
+            const row = Math.floor(index / 10);
+            const col = index % 10;
 
-            if (row && col) {
-                const shootingPlayerId = currentPlayerTurn;
-                fetch(`/game/${gameId}/player/${shootingPlayerId}/shoot/${row}/${col}`, {
-                    method: 'POST'
+            const shootingPlayerId = currentPlayerTurn;
+            fetch(`/game/${gameId}/player/${shootingPlayerId}/shoot/${row}/${col}`, {
+                method: 'POST'
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Cell shot:', data);
+                    const cell = document.querySelector(`.board__right .board__tile[data-index="${index}"]`);
+                    if (cell) {
+                        cell.classList.add('shot');
+                    }
+
+                    currentPlayerTurn = (currentPlayerTurn === player1Id) ? player2Id : player1Id;
+                    updateTurnIndicator();
                 })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log('Cell shot:', data);
-                        const cell = document.querySelector(`.board__right .board__tile[data-index="${parseInt(row) * 10 + parseInt(col)}"]`);
-                        if (cell) {
-                            cell.classList.add('shot');
-                        }
-
-                        currentPlayerTurn = (currentPlayerTurn === player1Id) ? player2Id : player1Id;
-                        updateTurnIndicator();
-                    })
-                    .catch(error => console.error('Error shooting cell:', error));
-            }
+                .catch(error => console.error('Error shooting cell:', error));
         } else {
-            alert("The game is not ready or ships are not placed.");
+            alert('The game is not ready or ships are not placed.');
         }
     }
 </script>
