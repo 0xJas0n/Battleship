@@ -2,6 +2,7 @@ package jl.battleship.domain.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "ships")
@@ -14,6 +15,19 @@ public class ShipEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "ship_type", nullable = false)
     private ShipType shipType;
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "board_id", nullable = false)
+    private BoardEntity board;
+    @Setter
+    @Column(name = "start_row", nullable = false)
+    private int startRow;
+    @Setter
+    @Column(name = "start_col", nullable = false)
+    private int startCol;
+    @Setter
+    @Column(name = "is_horizontal", nullable = false)
+    private boolean isHorizontal;
 
     public enum ShipType {
         CARRIER(5),

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class PlayerController {
     private static final String CREATE_PLAYER_URL = "/player/create/{gameId}/{name}";
+    private static final String PLACE_SHIP_URL = "/player/{playerId}/placeShip/{shipType}/{row}/{col}/{isHorizontal}";
     private final PlayerService playerService;
     private final GameService gameService;
 

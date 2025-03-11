@@ -1,27 +1,23 @@
 package jl.battleship.domain.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.ElementCollection;
+import jakarta.persistence.*;
 import lombok.Getter;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "boards")
 @Getter
 public class BoardEntity {
+    public static final int BOARD_SIZE = 10;
     @Id
     @GeneratedValue
     private Long id;
-
-    public static final int BOARD_SIZE = 10;
-
     @ElementCollection
     private List<CellEntity> cells;
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ShipEntity> ships = new ArrayList<>();
 
     public BoardEntity() {
         initializeBoard();
@@ -35,5 +31,10 @@ public class BoardEntity {
             int col = i % BOARD_SIZE;
             cells.add(new CellEntity(row, col));
         }
+    }
+
+    public void addShip(ShipEntity ship) {
+        ship.setBoard(this);
+        ships.add(ship);
     }
 }
