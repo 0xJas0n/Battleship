@@ -56,4 +56,13 @@ public class BoardEntity {
                     .ifPresent(cell -> cell.setShip(true));
         }
     }
+
+    public void shootCell(int row, int col) throws Exception {
+        CellEntity cell = cells.stream()
+                .filter(c -> c.getRow() == row && c.getCol() == col)
+                .findFirst()
+                .orElseThrow(() -> new Exception("Cell not found"));
+
+        cell.setHit(true);
+    }
 }
