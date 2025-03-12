@@ -14,10 +14,11 @@ public class GameService {
         this.gameRepository = gameRepository;
     }
 
-    public Long createGame() {
+    public GameEntity createGame() {
         GameEntity game = new GameEntity();
         this.gameRepository.save(game);
-        return game.getId();
+
+        return game;
     }
 
     public void addPlayer(Long gameId, PlayerEntity player) throws Exception {
