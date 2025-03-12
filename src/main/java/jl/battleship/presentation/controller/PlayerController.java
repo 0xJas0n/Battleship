@@ -1,5 +1,6 @@
 package jl.battleship.presentation.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jl.battleship.application.dto.PlayerDTO;
 import jl.battleship.application.services.GameService;
 import jl.battleship.application.services.PlayerService;
@@ -18,6 +19,7 @@ public class PlayerController {
         this.gameService = gameService;
     }
 
+    @Operation(summary = "Create a player for the given game.")
     @PostMapping("/create/{gameId}")
     public PlayerDTO createPlayer(@RequestParam String name, @PathVariable Long gameId) throws Exception {
         PlayerEntity player = playerService.createPlayer(name);
@@ -30,6 +32,7 @@ public class PlayerController {
         );
     }
 
+    @Operation(summary = "Place a ship for the given player.")
     @PostMapping("/{playerId}/placeShip")
     public PlayerDTO placeShip(
             @PathVariable Long playerId,
