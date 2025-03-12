@@ -99,12 +99,43 @@
 
     function updateTurnIndicator() {
         const turnIndicator = document.getElementById('turn-indicator');
+        const topBoardTiles = document.querySelectorAll('.board__top .board__tile');
+
         if (!player1ShipsPlaced || !player2ShipsPlaced) {
             turnIndicator.textContent = 'Waiting for setup...';
+            topBoardTiles.forEach(tile => {
+                tile.disabled = true;
+            });
         } else if (currentPlayerTurn === player1Id) {
             turnIndicator.textContent = `${player1Name}'s turn!`;
+            const player1TopBoard = document.getElementById('player1-opponent-board');
+            const player2TopBoard = document.getElementById('player2-opponent-board');
+            enableShootButtons(player1TopBoard);
+            disableShootButtons(player2TopBoard);
         } else if (currentPlayerTurn === player2Id) {
             turnIndicator.textContent = `${player2Name}'s turn!`;
+            const player1TopBoard = document.getElementById('player1-opponent-board');
+            const player2TopBoard = document.getElementById('player2-opponent-board');
+            enableShootButtons(player2TopBoard);
+            disableShootButtons(player1TopBoard);
+        }
+    }
+
+    function enableShootButtons(boardElement) {
+        if (boardElement) {
+            const tiles = boardElement.querySelectorAll('.board__tile');
+            tiles.forEach(tile => {
+                tile.disabled = false;
+            });
+        }
+    }
+
+    function disableShootButtons(boardElement) {
+        if (boardElement) {
+            const tiles = boardElement.querySelectorAll('.board__tile');
+            tiles.forEach(tile => {
+                tile.disabled = true;
+            });
         }
     }
 
@@ -190,7 +221,7 @@
             .then(response => response.json())
             .then(data => {
                 const boardElement = document.getElementById(`player${playerId === player1Id ? '1' : '2'}-board`);
-                boardElement.innerHTML = ''; // Clear the board before updating
+                boardElement.innerHTML = '';
 
                 data.cells.forEach(cell => {
                     const cellElement = document.createElement('button');
@@ -211,29 +242,86 @@
             .catch(error => console.error('Error fetching board:', error));
     }
 
+    function updateBoardView(boardElement, boardData, isOpponentBoard) {
+        boardElement.innerHTML = '';
+
+        boardData.cells.forEach(cell => {
+            const cellElement = document.createElement('button');
+            cellElement.classList.add('board__tile');
+            cellElement.style.gridRow = cell.row + 1;
+            cellElement.style.gridColumn = cell.col + 1;
+
+            if (isOpponentBoard) {
+                if (cell.isHit) {
+                    if (cell.isShip) {
+                        cellElement.classList.add('ship', 'shot');
+                    } else {
+                        cellElement.classList.add('shot');
+                    }
+                }
+            } else {
+                if (cell.isShip) {
+                    cellElement.classList.add('ship');
+                }
+                if (cell.isHit) {
+                    cellElement.classList.add('shot');
+                }
+            }
+
+            if (isOpponentBoard) {
+                cellElement.addEventListener('click', () => {
+                    const index = cell.row * 10 + cell.col;
+                    shootCell(index);
+                });
+            }
+
+            boardElement.appendChild(cellElement);
+        });
+
+        if (isOpponentBoard) {
+            const isCurrentPlayerBoard = (boardElement.id === `player${currentPlayerTurn === player1Id ? '1' : '2'}-opponent-board`);
+            if (isCurrentPlayerBoard) {
+                enableShootButtons(boardElement);
+            } else {
+                disableShootButtons(boardElement);
+            }
+        }
+    }
+
     function shootCell(index) {
         if (gameId && player1ShipsPlaced && player2ShipsPlaced) {
             const row = Math.floor(index / 10);
             const col = index % 10;
 
             const shootingPlayerId = currentPlayerTurn;
+            const opponentPlayerId = shootingPlayerId === player1Id ? player2Id : player1Id;
+
             fetch(`/game/${gameId}/player/${shootingPlayerId}/shoot?row=${row}&col=${col}`, {
                 method: 'POST'
             })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to shoot cell');
+                    }
+                    return fetch(`/player/${opponentPlayerId}/board`);
+                })
                 .then(response => response.json())
                 .then(data => {
-                    console.log('Cell shot:', data);
-                    const cell = document.querySelector(`.board__top .board__tile[data-index="${index}"]`);
-                    if (cell) {
-                        cell.classList.add('shot');
-                    }
+                    console.log('Updated opponent board state:', data);
 
-                    currentPlayerTurn = (currentPlayerTurn === player1Id) ? player2Id : player1Id;
+                    const topBoardElement = document.getElementById(`player${shootingPlayerId === player1Id ? '1' : '2'}-opponent-board`);
+                    updateBoardView(topBoardElement, data, true);
+
+                    const bottomBoardElement = document.getElementById(`player${opponentPlayerId === player1Id ? '1' : '2'}-board`);
+                    updateBoardView(bottomBoardElement, data, false);
+
+                    currentPlayerTurn = opponentPlayerId;
                     updateTurnIndicator();
-
-                    updateBoard(shootingPlayerId === player1Id ? player2Id : player1Id);
                 })
-                .catch(error => console.error('Error shooting cell:', error));
+                .catch(error => {
+                    console.error('Error shooting cell:', error);
+                    alert('Error shooting cell: ' + error.message);
+                });
         } else {
             alert('The game is not ready or ships are not placed.');
         }
