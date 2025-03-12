@@ -27,7 +27,8 @@ public class PlayerEntity {
         this.board = new BoardEntity();
     }
 
-    public PlayerEntity() {}
+    public PlayerEntity() {
+    }
 
     public void placeShip(ShipEntity.ShipType shipType, int startRow, int startCol, boolean isHorizontal) throws Exception {
         if (board == null) {

@@ -8,4 +8,5 @@ public record ShipDTO(
         int startRow,
         int startCol,
         boolean isHorizontal
-) {}
+) {
+}

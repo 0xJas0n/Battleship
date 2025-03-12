@@ -6,4 +6,5 @@ public record BoardDTO(
         Long id,
         List<CellDTO> cells,
         List<ShipDTO> ships
-) {}
+) {
+}

@@ -74,7 +74,7 @@ public class PlayerController {
 
         List<CellDTO> cellDTOs = new ArrayList<>();
         for (CellEntity cell : cells) {
-            cellDTOs.add(new CellDTO(cell.getRow(), cell.getCol(),cell.isShip(), cell.isHit()));
+            cellDTOs.add(new CellDTO(cell.getRow(), cell.getCol(), cell.isShip(), cell.isHit()));
         }
 
         List<ShipDTO> shipDTOs = new ArrayList<>();

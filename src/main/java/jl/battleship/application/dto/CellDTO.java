@@ -5,4 +5,5 @@ public record CellDTO(
         int col,
         boolean isShip,
         boolean isHit
-) {}
+) {
+}
