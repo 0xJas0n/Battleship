@@ -2,7 +2,6 @@ package jl.battleship.presentation.controller;
 
 import jl.battleship.application.services.GameService;
 import jl.battleship.application.services.PlayerService;
-import jl.battleship.domain.model.BoardEntity;
 import jl.battleship.domain.model.GameEntity;
 import jl.battleship.domain.model.PlayerEntity;
 import jl.battleship.domain.model.ShipEntity;
@@ -28,7 +27,6 @@ public class PlayerController {
         PlayerEntity player = this.playerService.createPlayer(name);
         GameEntity game = this.gameService.getGame(gameId);
         this.gameService.addPlayer(game.getId(), player);
-
         return player;
     }
 
@@ -41,22 +39,12 @@ public class PlayerController {
             @PathVariable boolean isHorizontal) throws Exception {
 
         PlayerEntity player = playerService.getPlayer(playerId);
+
         if (player == null) {
             throw new Exception("Player not found");
         }
 
-        BoardEntity board = player.getBoard();
-        if (board == null) {
-            throw new Exception("Board not found");
-        }
-
-        ShipEntity ship = new ShipEntity();
-        ship.setShipType(ShipEntity.ShipType.valueOf(shipType.toUpperCase()));
-        ship.setStartRow(row);
-        ship.setStartCol(col);
-        ship.setHorizontal(isHorizontal);
-
-        board.addShip(ship);
+        player.placeShip(ShipEntity.ShipType.valueOf(shipType.toUpperCase()), row, col, isHorizontal);
         playerService.savePlayer(player);
 
         return player;
@@ -69,34 +57,22 @@ public class PlayerController {
             @PathVariable int row,
             @PathVariable int col) throws Exception {
 
-        // Fetch the game
         GameEntity game = gameService.getGame(gameId);
         if (game == null) {
             throw new Exception("Game not found");
         }
 
-        // Fetch the player who is shooting
         PlayerEntity player = playerService.getPlayer(playerId);
         if (player == null) {
             throw new Exception("Player not found");
         }
 
-        // Determine the opponent
         PlayerEntity opponent = game.getPlayer1().equals(player) ? game.getPlayer2() : game.getPlayer1();
         if (opponent == null) {
             throw new Exception("Opponent not found");
         }
 
-        // Fetch the opponent's board
-        BoardEntity opponentBoard = opponent.getBoard();
-        if (opponentBoard == null) {
-            throw new Exception("Opponent's board not found");
-        }
-
-        // Shoot at the opponent's board
-        opponentBoard.shootCell(row, col);
-
-        // Save the updated opponent (and board) to the repository
+        opponent.getBoard().shootCell(row, col);
         playerService.savePlayer(opponent);
 
         return player;

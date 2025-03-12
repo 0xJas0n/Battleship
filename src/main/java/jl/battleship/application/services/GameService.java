@@ -17,21 +17,12 @@ public class GameService {
     public Long createGame() {
         GameEntity game = new GameEntity();
         this.gameRepository.save(game);
-
         return game.getId();
     }
 
     public void addPlayer(Long gameId, PlayerEntity player) throws Exception {
         GameEntity game = this.getGame(gameId);
-
-        if (game.getPlayer1() == null) {
-            game.setPlayer1(player);
-        } else if (game.getPlayer2() == null) {
-            game.setPlayer2(player);
-        } else {
-            throw new Exception("No slots left in the game");
-        }
-
+        game.addPlayer(player);
         this.gameRepository.save(game);
     }
 

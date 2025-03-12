@@ -37,7 +37,11 @@ public class BoardEntity {
         }
     }
 
-    public void addShip(ShipEntity ship) {
+    public void addShip(ShipEntity ship) throws Exception {
+        if (ship == null) {
+            throw new Exception("Ship cannot be null");
+        }
+
         ship.setBoard(this);
         ships.add(ship);
 

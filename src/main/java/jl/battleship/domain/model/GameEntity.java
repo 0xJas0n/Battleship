@@ -22,19 +22,13 @@ public class GameEntity {
     @JoinColumn(name = "player2_id")
     private PlayerEntity player2;
 
-    @Setter
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
-    private GameStatus status;
-
-    public GameEntity() {
-        this.status = GameStatus.WAITING_FOR_PLAYER;
-    }
-
-    public enum GameStatus {
-        WAITING_FOR_PLAYER,
-        PLACING_SHIPS,
-        IN_PROGRESS,
-        FINISHED
+    public void addPlayer(PlayerEntity player) throws Exception {
+        if (player1 == null) {
+            player1 = player;
+        } else if (player2 == null) {
+            player2 = player;
+        } else {
+            throw new Exception("No slots left in the game");
+        }
     }
 }
