@@ -53,8 +53,12 @@
     pointer-events: none;
 }
 
-.shot {
+.ship.shot {
     background-color: red;
+}
+
+.shot {
+    background-color: orange;
 }
 
 .board__title {
