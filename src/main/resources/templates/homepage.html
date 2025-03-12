@@ -21,12 +21,49 @@
 <main class="main">
     <div>
         <h2 class="main__info" id="turn-indicator">Waiting for setup...</h2>
-        <div class="board__grid">
-            <div class="board board__left">
-                <button class="board__tile" th:data-index="${i}" th:each="i : ${#numbers.sequence(0, 99)}"></button>
+        <div class="boards__grid">
+            <div class="board board__top">
+                <h3 class="board__title">Player 1</h3>
+                <div class="board__grid" id="player1-opponent-board">
+                    <button
+                            class="board__tile"
+                            th:data-index="${i}"
+                            th:each="i : ${#numbers.sequence(0, 99)}"
+                            th:style="'grid-row: ' + (${#numbers.formatDecimal(i / 10 + 1, 0, 0)}) + '; grid-column: ' + (${i} % 10 + 1) + ';'"
+                    ></button>
+                </div>
             </div>
-            <div class="board board__right">
-                <button class="board__tile" th:data-index="${i}" th:each="i : ${#numbers.sequence(0, 99)}"></button>
+            <div class="board board__bot">
+                <div class="board__grid" id="player1-board">
+                    <button
+                            class="board__tile"
+                            th:data-index="${i}"
+                            th:each="i : ${#numbers.sequence(0, 99)}"
+                            th:style="'grid-row: ' + (${#numbers.formatDecimal(i / 10 + 1, 0, 0)}) + '; grid-column: ' + (${i} % 10 + 1) + ';'"
+                    ></button>
+                </div>
+            </div>
+
+            <div class="board board__top">
+                <h3 class="board__title">Player 2</h3>
+                <div class="board__grid" id="player2-opponent-board">
+                    <button
+                            class="board__tile"
+                            th:data-index="${i}"
+                            th:each="i : ${#numbers.sequence(0, 99)}"
+                            th:style="'grid-row: ' + (${#numbers.formatDecimal(i / 10 + 1, 0, 0)}) + '; grid-column: ' + (${i} % 10 + 1) + ';'"
+                    ></button>
+                </div>
+            </div>
+            <div class="board board__bot">
+                <div class="board__grid" id="player2-board">
+                    <button
+                            class="board__tile"
+                            th:data-index="${i}"
+                            th:each="i : ${#numbers.sequence(0, 99)}"
+                            th:style="'grid-row: ' + (${#numbers.formatDecimal(i / 10 + 1, 0, 0)}) + '; grid-column: ' + (${i} % 10 + 1) + ';'"
+                    ></button>
+                </div>
             </div>
         </div>
     </div>
@@ -50,9 +87,9 @@
     let player2ShipsPlaced = false;
 
     document.addEventListener('DOMContentLoaded', () => {
-        const rightBoardTiles = document.querySelectorAll('.board__right .board__tile');
+        const topBoardTiles = document.querySelectorAll('.board__top .board__tile');
 
-        rightBoardTiles.forEach(tile => {
+        topBoardTiles.forEach(tile => {
             tile.addEventListener('click', () => {
                 const index = tile.getAttribute('data-index');
                 shootCell(index);
@@ -139,7 +176,7 @@
                             alert('All ships placed. Player 1 starts shooting!');
                         }
 
-                        addShipToBoard(shipType, row, col, isHorizontal);
+                        updateBoard(playerId);
                     })
                     .catch(error => console.error('Error placing ship:', error));
             }
@@ -148,32 +185,30 @@
         }
     }
 
-    function addShipToBoard(shipType, row, col, isHorizontal) {
-        const shipSize = {
-            CARRIER: 5,
-            BATTLESHIP: 4,
-            DESTROYER: 3,
-            SUBMARINE: 3,
-            PATROL_BOAT: 2
-        }[shipType.toUpperCase()];
+    function updateBoard(playerId) {
+        fetch(`/player/${playerId}/board`)
+            .then(response => response.json())
+            .then(data => {
+                const boardElement = document.getElementById(`player${playerId === player1Id ? '1' : '2'}-board`);
+                boardElement.innerHTML = ''; // Clear the board before updating
 
-        const cellSize = 32;
-        const gap = 4;
-        const padding = 22;
-        const shipDiv = document.createElement('div');
+                data.cells.forEach(cell => {
+                    const cellElement = document.createElement('button');
+                    cellElement.classList.add('board__tile');
+                    cellElement.style.gridRow = cell.row + 1;
+                    cellElement.style.gridColumn = cell.col + 1;
 
-        shipDiv.classList.add('ship');
-        shipDiv.style.width = isHorizontal ? `${shipSize * cellSize + (shipSize - 1) * 4}px` : `${cellSize}px`;
-        shipDiv.style.height = isHorizontal ? `${cellSize}px` : `${shipSize * cellSize + (shipSize - 1) * 4}px`;
+                    if (cell.isShip) {
+                        cellElement.classList.add('ship');
+                    }
+                    if (cell.isHit) {
+                        cellElement.classList.add('shot');
+                    }
 
-        const left = padding + col * (cellSize + gap);
-        const top = padding + row * (cellSize + gap);
-
-        shipDiv.style.left = `${left}px`;
-        shipDiv.style.top = `${top}px`;
-
-        const board = document.querySelector('.board__left');
-        board.appendChild(shipDiv);
+                    boardElement.appendChild(cellElement);
+                });
+            })
+            .catch(error => console.error('Error fetching board:', error));
     }
 
     function shootCell(index) {
@@ -188,13 +223,15 @@
                 .then(response => response.json())
                 .then(data => {
                     console.log('Cell shot:', data);
-                    const cell = document.querySelector(`.board__right .board__tile[data-index="${index}"]`);
+                    const cell = document.querySelector(`.board__top .board__tile[data-index="${index}"]`);
                     if (cell) {
                         cell.classList.add('shot');
                     }
 
                     currentPlayerTurn = (currentPlayerTurn === player1Id) ? player2Id : player1Id;
                     updateTurnIndicator();
+
+                    updateBoard(shootingPlayerId === player1Id ? player2Id : player1Id);
                 })
                 .catch(error => console.error('Error shooting cell:', error));
         } else {

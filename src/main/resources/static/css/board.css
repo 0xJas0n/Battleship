@@ -1,4 +1,4 @@
-.board {
+.board__grid {
     display: grid;
     grid-template-columns: repeat(10, minmax(0, 1fr));
     grid-template-rows: repeat(10, minmax(0, 1fr));
@@ -12,11 +12,13 @@
     box-shadow: black 2px 2px 0 0;
 }
 
-.board__grid {
-    position: relative;
+.boards__grid {
     display: grid;
+    grid-auto-flow: column;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 40px;
+    grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 80px;
+    row-gap: 20px;
 }
 
 .board__tile {
@@ -29,14 +31,14 @@
     transition: background-color 0.1s ease;
     cursor: pointer;
 
-    .board__left &:hover {
-        background-color: oklch(0.828 0.111 230.318);
+    .board__top &:hover {
+        background-color: oklch(0.712 0.194 13.428);
         box-shadow: black 0 0 0 0;
         transform: translateY(1px);
     }
 
-    .board__right &:hover {
-        background-color: oklch(0.712 0.194 13.428);
+    .board__bot &:hover {
+        background-color: oklch(0.828 0.111 230.318);
         box-shadow: black 0 0 0 0;
         transform: translateY(1px);
     }
@@ -44,13 +46,17 @@
 
 .ship {
     box-sizing: border-box;
-    position: absolute;
     border: 1px solid black;
-    box-shadow: black 2px 2px 0 0;
     border-radius: 4px;
-    background-color: rgba(44, 62, 80,1.0);
+    background-color: rgba(44, 62, 80, 1.0);
+    box-shadow: black 2px 2px 0 0;
+    pointer-events: none;
 }
 
 .shot {
     background-color: red;
+}
+
+.board__title {
+    text-align: center;
 }
