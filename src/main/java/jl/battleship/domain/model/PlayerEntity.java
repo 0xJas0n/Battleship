@@ -16,6 +16,7 @@ public class PlayerEntity {
     @Column(name = "name")
     private String name;
 
+    @Getter
     @Setter
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "board_id")

@@ -1,5 +1,6 @@
 package jl.battleship.presentation.controller;
 
+import jl.battleship.application.dto.BoardDTO;
 import jl.battleship.application.dto.GameDTO;
 import jl.battleship.application.services.GameService;
 import jl.battleship.domain.model.GameEntity;
@@ -34,5 +35,14 @@ public class GameController {
                 game.getPlayer1() != null ? game.getPlayer1().getId() : null,
                 game.getPlayer2() != null ? game.getPlayer2().getId() : null
         );
+    }
+
+    @PostMapping("/{gameId}/player/{playerId}/shoot")
+    public void shootCell(
+            @PathVariable Long gameId,
+            @PathVariable Long playerId,
+            @RequestParam int row,
+            @RequestParam int col) throws Exception {
+        gameService.shootCell(gameId, playerId, row, col);
     }
 }
