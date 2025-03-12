@@ -66,7 +66,7 @@ public class PlayerController {
 
     @Operation(summary = "Get the board of the given player")
     @GetMapping("/{playerId}/board")
-    public BoardDTO getBoard(@PathVariable Long playerId) throws Exception {
+    public BoardDTO getBoard(@PathVariable Long playerId) {
         PlayerEntity player = playerService.getPlayer(playerId);
         BoardEntity board = player.getBoard();
         List<CellEntity> cells = board.getCells();
