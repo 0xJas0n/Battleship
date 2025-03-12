@@ -6,6 +6,18 @@ This guide will help you set up and run the application.
 
 The game will be available on [localhost:8080](http://localhost:8080)
 
+### Game flow
+
+- Create Game
+- Create Player 1
+  - Enter player name
+  - Place ships
+- Create Player 2
+   - Enter player name
+   - Place ships
+- Click on the top board to select which cell to shoot
+- Red cells mark hits and orange cells mark misses
+
 ## Prerequisites
 
 - [Docker](https://www.docker.com/get-started)
