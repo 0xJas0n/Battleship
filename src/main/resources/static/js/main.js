@@ -89,10 +89,20 @@ function createPlayer() {
                 if (!player1Id) {
                     player1Id = playerId;
                     player1Name = name;
+
+                    const player1Title = document.getElementById('player1-title');
+                    if (player1Title) {
+                        player1Title.textContent = player1Name;
+                    }
                     alert('Player 1 created. Now place your ships.');
                 } else if (!player2Id) {
                     player2Id = playerId;
                     player2Name = name;
+
+                    const player2Title = document.getElementById('player2-title');
+                    if (player2Title) {
+                        player2Title.textContent = player2Name;
+                    }
                     alert('Player 2 created. Now place your ships.');
                 }
                 console.log('Player created with ID:', playerId);
