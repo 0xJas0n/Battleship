@@ -1,8 +1,10 @@
 package jl.battleship.application.dto;
 
+import jl.battleship.domain.model.ShipEntity;
+
 public record ShipDTO(
         Long id,
-        String shipType,
+        ShipEntity.ShipType shipType,
         int startRow,
         int startCol,
         boolean isHorizontal

@@ -8,6 +8,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "ships")
 @Getter
+@Setter
 public class ShipEntity {
     @Id
     @GeneratedValue
@@ -15,20 +16,15 @@ public class ShipEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "ship_type", nullable = false)
-    @Setter
     private ShipType shipType;
-    @Setter
     @ManyToOne
     @JoinColumn(name = "board_id", nullable = false)
     @JsonBackReference
     private BoardEntity board;
-    @Setter
     @Column(name = "start_row", nullable = false)
     private int startRow;
-    @Setter
     @Column(name = "start_col", nullable = false)
     private int startCol;
-    @Setter
     @Column(name = "is_horizontal", nullable = false)
     private boolean isHorizontal;
 
