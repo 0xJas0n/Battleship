@@ -2,9 +2,12 @@
 
 This guide will help you set up and run the application.
 
-## Usage
+## Links
 
-The game will be available on [localhost:8080](http://localhost:8080)
+| Page            | URL                                                                                                   |
+|-----------------|-------------------------------------------------------------------------------------------------------|
+| App             | [localhost:30400]( http://localhost:30400)                                                            |
+| Gateway Swagger | [localhost:30400/webjars/swagger-ui/index.html](http://localhost:30400/webjars/swagger-ui/index.html) |
 
 ### Game flow
 
@@ -23,23 +26,26 @@ The game will be available on [localhost:8080](http://localhost:8080)
 - [Docker](https://www.docker.com/get-started)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
-### Starting the Database
+### Starting the Databases
 
 1. Open a terminal in the project root directory
-2. Run the following command to start the PostgreSQL container:
+2. Run the following command to start all PostgreSQL containers:
    ```bash
    docker-compose up -d
    ```
 
-This will start the PostgreSQL database with the following configuration:
-- Host: localhost
-- Port: 5433
-- Username: postgres
-- Password: postgres
+This will start the PostgreSQL databases on following ports:
 
-### Stopping the Database
+| Service        | Port  |
+|----------------|-------|
+| Gateway        | 30300 |
+| Game service   | 30301 |
+| Player service | 30302 |
+| Board service  | 30303 |
 
-To stop the PostgreSQL container, run:
+### Stopping the Databases
+
+To stop all the PostgreSQL containers, run:
 ```bash
 docker-compose down
 ```
