@@ -1,0 +1,15 @@
+services:
+    postgres_db:
+        image: postgres:latest
+        container_name: jl-gameservice-db
+        restart: always
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+        ports:
+            - '30301:5432'
+        volumes:
+            - postgres_db:/var/lib/postgresql/data
+volumes:
+    postgres_db:
+        driver: local
