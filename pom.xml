@@ -10,10 +10,10 @@
     <description>battleship</description>
     <url/>
     <modules>
+        <module>gateway</module>
         <module>playerservice</module>
         <module>gameservice</module>
         <module>boardservice</module>
-        <module>gateway</module>
     </modules>
     <packaging>pom</packaging>
     <licenses>
