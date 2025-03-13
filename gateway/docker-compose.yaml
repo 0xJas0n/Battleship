@@ -1,15 +1,15 @@
 services:
-    board-db:
+    gateway-db:
         image: postgres:latest
-        container_name: jl-board-db
+        container_name: jl-gateway-db
         restart: always
         environment:
             - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=postgres
         ports:
-            - '30303:5432'
+            - '30300:5432'
         volumes:
-            - postgres_db:/var/lib/postgresql/data
+            - gateway_db_data:/var/lib/postgresql/data
 volumes:
-    postgres_db:
+    gateway_db_data:
         driver: local

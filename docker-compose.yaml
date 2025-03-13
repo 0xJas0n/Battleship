@@ -1,4 +1,16 @@
 services:
+    gateway-db:
+        image: postgres:latest
+        container_name: jl-gateway-db
+        restart: always
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+        ports:
+            - '30300:5432'
+        volumes:
+            - gateway_db_data:/var/lib/postgresql/data
+
     game-db:
         image: postgres:latest
         container_name: jl-game-db
@@ -36,6 +48,8 @@ services:
             - board_db_data:/var/lib/postgresql/data
 
 volumes:
+    gateway_db_data:
+        driver: local
     game_db_data:
         driver: local
     player_db_data:
