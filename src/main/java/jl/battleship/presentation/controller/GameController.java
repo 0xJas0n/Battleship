@@ -48,4 +48,11 @@ public class GameController {
             @RequestParam int col) throws Exception {
         gameService.shootCell(gameId, playerId, row, col);
     }
+
+    @Operation(summary = "Get the CLI representation of the board for a player")
+    @GetMapping("/{playerId}/board")
+    public String getBoardCliRepresentation(
+            @PathVariable Long playerId) throws Exception {
+        return gameService.getBoardCliRepresentation(playerId);
+    }
 }

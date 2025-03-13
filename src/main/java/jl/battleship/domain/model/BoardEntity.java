@@ -69,4 +69,37 @@ public class BoardEntity {
 
         cell.setHit(true);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("  ");
+        for (int col = 0; col < BOARD_SIZE; col++) {
+            sb.append(col).append(" ");
+        }
+        sb.append("\n");
+
+        for (int row = 0; row < BOARD_SIZE; row++) {
+            sb.append(row).append(" ");
+            for (int col = 0; col < BOARD_SIZE; col++) {
+                int finalRow = row;
+                int finalCol = col;
+
+                CellEntity cell = cells.stream()
+                        .filter(c -> c.getRow() == finalRow && c.getCol() == finalCol)
+                        .findFirst()
+                        .orElseThrow(() -> new RuntimeException("Cell not found"));
+
+                if (cell.isHit()) {
+                    sb.append(cell.isShip() ? "X " : "O ");
+                } else {
+                    sb.append(cell.isShip() ? "S " : ". ");
+                }
+            }
+            sb.append("\n");
+        }
+
+        return sb.toString();
+    }
 }

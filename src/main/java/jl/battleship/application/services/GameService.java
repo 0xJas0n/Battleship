@@ -51,4 +51,12 @@ public class GameService {
         opponentBoard.shootCell(row, col);
         gameRepository.save(game);
     }
+
+    public String getBoardCliRepresentation(Long playerId) throws Exception {
+        PlayerEntity player = playerRepository.findById(playerId.intValue())
+                .orElseThrow(() -> new Exception("Player not found"));
+
+        BoardEntity board = player.getBoard();
+        return board.toString();
+    }
 }
