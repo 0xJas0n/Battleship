@@ -1,4 +1,4 @@
-package jl.battleship.gameservice.application.dto;
+package jl.gameservice.application.dto;
 
 public record GameDTO(
         Long id,

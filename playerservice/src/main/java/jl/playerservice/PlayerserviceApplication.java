@@ -1,4 +1,4 @@
-package jl.battleship.playerservice;
+package jl.playerservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

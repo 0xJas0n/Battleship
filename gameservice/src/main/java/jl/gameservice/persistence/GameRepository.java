@@ -1,6 +1,6 @@
-package jl.battleship.gameservice.persistence;
+package jl.gameservice.persistence;
 
-import jl.battleship.gameservice.domain.model.GameEntity;
+import jl.gameservice.domain.model.GameEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

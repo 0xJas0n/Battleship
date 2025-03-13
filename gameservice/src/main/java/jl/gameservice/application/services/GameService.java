@@ -1,10 +1,10 @@
-package jl.battleship.gameservice.application.services;
+package jl.gameservice.application.services;
 
 import jakarta.persistence.EntityNotFoundException;
-import jl.battleship.gameservice.domain.model.BoardEntity;
-import jl.battleship.gameservice.domain.model.GameEntity;
-import jl.battleship.gameservice.domain.model.PlayerEntity;
-import jl.battleship.gameservice.persistence.GameRepository;
+import jl.gameservice.domain.model.BoardEntity;
+import jl.gameservice.domain.model.GameEntity;
+import jl.gameservice.domain.model.PlayerEntity;
+import jl.gameservice.persistence.GameRepository;
 import jl.battleship.gameservice.persistence.PlayerRepository;
 import org.springframework.stereotype.Service;
 

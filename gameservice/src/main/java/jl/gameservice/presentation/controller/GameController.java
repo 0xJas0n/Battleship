@@ -1,9 +1,9 @@
-package jl.battleship.gameservice.presentation.controller;
+package jl.gameservice.presentation.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
-import jl.battleship.gameservice.application.dto.GameDTO;
-import jl.battleship.gameservice.application.services.GameService;
-import jl.battleship.gameservice.domain.model.GameEntity;
+import jl.gameservice.application.dto.GameDTO;
+import jl.gameservice.application.services.GameService;
+import jl.gameservice.domain.model.GameEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

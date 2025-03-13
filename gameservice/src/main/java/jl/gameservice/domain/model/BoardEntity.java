@@ -1,4 +1,4 @@
-package jl.battleship.gameservice.domain.model;
+package jl.gameservice.domain.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -1,4 +1,4 @@
-package jl.battleship.gateway;
+package jl.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
