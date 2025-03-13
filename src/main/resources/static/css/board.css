@@ -59,6 +59,8 @@
 
 .shot {
     background-color: orange;
+    pointer-events: none;
+    box-shadow: black 2px 2px 0 0;
 }
 
 .board__title {

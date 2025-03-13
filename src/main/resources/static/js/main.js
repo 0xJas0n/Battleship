@@ -116,7 +116,7 @@ function createPlayer() {
 
 function placeShip() {
     if (playerId) {
-        const shipType = prompt('Enter ship type (CARRIER, BATTLESHIP, DESTROYER, SUBMARINE, PATROL_BOAT):');
+        const shipType = prompt('Enter ship type (Carrier, Battleship, Destroyer, Submarine, Patrol_Boat):');
         const row = prompt('Enter starting row (0-9):');
         const col = prompt('Enter starting column (0-9):');
         const isHorizontal = confirm('Is the ship horizontal? (OK for Yes, Cancel for No)');

@@ -33,7 +33,7 @@ The game will be available on [localhost:8080](http://localhost:8080)
 
 This will start the PostgreSQL database with the following configuration:
 - Host: localhost
-- Port: 5432
+- Port: 5433
 - Username: postgres
 - Password: postgres
 
