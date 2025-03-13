@@ -1,0 +1,44 @@
+services:
+    game-db:
+        image: postgres:latest
+        container_name: jl-game-db
+        restart: always
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+        ports:
+            - '30301:5432'
+        volumes:
+            - game_db_data:/var/lib/postgresql/data
+
+    player-db:
+        image: postgres:latest
+        container_name: jl-player-db
+        restart: always
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+        ports:
+            - '30302:5432'
+        volumes:
+            - player_db_data:/var/lib/postgresql/data
+
+    board-db:
+        image: postgres:latest
+        container_name: jl-board-db
+        restart: always
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+        ports:
+            - '30303:5432'
+        volumes:
+            - board_db_data:/var/lib/postgresql/data
+
+volumes:
+    game_db_data:
+        driver: local
+    player_db_data:
+        driver: local
+    board_db_data:
+        driver: local
