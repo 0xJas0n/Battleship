@@ -1,34 +1,22 @@
 package jl.gameservice.domain.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Table(name = "games")
 @Getter
+@Setter
 public class GameEntity {
     @Id
     @GeneratedValue
     private Long id;
 
-    @Setter
-    @ManyToOne
-    @JoinColumn(name = "player1_id")
-    private PlayerEntity player1;
+    private Long player1Id;
 
-    @Setter
-    @ManyToOne
-    @JoinColumn(name = "player2_id")
-    private PlayerEntity player2;
-
-    public void addPlayer(PlayerEntity player) throws Exception {
-        if (player1 == null) {
-            player1 = player;
-        } else if (player2 == null) {
-            player2 = player;
-        } else {
-            throw new Exception("No slots left in the game");
-        }
-    }
+    private Long player2Id;
 }

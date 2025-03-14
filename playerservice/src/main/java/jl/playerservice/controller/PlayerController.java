@@ -1,6 +1,8 @@
 package jl.playerservice.controller;
 
+import jl.playerservice.application.dto.PlayerDTO;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -8,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/players")
 public class PlayerController {
 
-    @GetMapping("")
-    public String test() {
-        return "yeahhh";
+    @GetMapping("/{id}")
+    public PlayerDTO getPlayerById(@PathVariable("id") Long id) {
+        return new PlayerDTO(id, id);
     }
 }
