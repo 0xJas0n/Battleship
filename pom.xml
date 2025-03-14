@@ -10,7 +10,7 @@
     <description>battleship</description>
     <url/>
     <modules>
-        <module>gateway</module>
+        <module>gatewayservice</module>
         <module>playerservice</module>
         <module>gameservice</module>
         <module>boardservice</module>

@@ -1,4 +1,4 @@
-package jl.gateway.presentation.controller;
+package jl.gatewayservice.presentation.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
