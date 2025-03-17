@@ -1,4 +1,4 @@
-package jl.playerservice.application.dto;
+package jl.gatewayservice.application.dto;
 
 public record PlayerDTO(
         Long id,

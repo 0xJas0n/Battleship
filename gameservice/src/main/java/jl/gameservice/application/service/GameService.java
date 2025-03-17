@@ -19,7 +19,7 @@ public class GameService {
     }
 
     public GameDTO getGameById(Long id) {
-        GameEntity game = gameRepository.findById(id.intValue()).orElseThrow(() -> new RuntimeException("Game not found"));
+        GameEntity game = gameRepository.findById(id).orElseThrow(() -> new RuntimeException("Game not found"));
         PlayerDTO player1 = playerClient.getPlayerById(game.getPlayer1Id());
         PlayerDTO player2 = playerClient.getPlayerById(game.getPlayer2Id());
 
