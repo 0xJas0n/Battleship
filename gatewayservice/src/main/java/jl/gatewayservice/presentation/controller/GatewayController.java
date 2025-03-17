@@ -36,4 +36,10 @@ public class GatewayController {
     public PlayerDTO createPlayer(@RequestParam("name") String name) {
         return gatewayService.createPlayer(name);
     }
+
+    @Operation(summary = "Add a Player to a game")
+    @GetMapping("/game-service/game/add-player")
+    public GameDTO addPlayerToGame(@RequestParam("playerId") Long playerId, @RequestParam("gameId") Long gameId) {
+        return gatewayService.addPlayerToGame(playerId, gameId);
+    }
 }

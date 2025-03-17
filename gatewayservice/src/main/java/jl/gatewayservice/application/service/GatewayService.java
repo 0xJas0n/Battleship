@@ -6,6 +6,7 @@ import jl.gatewayservice.application.dto.GameDTO;
 import jl.gatewayservice.application.dto.PlayerDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
@@ -24,6 +25,10 @@ public class GatewayService {
 
     public GameDTO createGame() {
         return gameClient.createGame();
+    }
+
+    public GameDTO addPlayerToGame(@RequestParam("playerId") Long playerId, @RequestParam("gameId") Long gameId) {
+        return gameClient.addPlayerToGame(playerId, gameId);
     }
 
     public PlayerDTO createPlayer(@RequestParam("name") String name) {
