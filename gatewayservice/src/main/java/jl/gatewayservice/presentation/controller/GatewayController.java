@@ -19,7 +19,7 @@ public class GatewayController {
        this.gatewayService = gatewayService;
     }
 
-    @Operation(summary = "Get the gameDTO")
+    @Operation(summary = "Get the Game by Id ")
     @GetMapping("/game-service/{gameId}")
     public GameDTO getGameById(@PathVariable("gameId") Long gameId) {
         return gatewayService.getGameById(gameId);
