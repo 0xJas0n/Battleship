@@ -18,7 +18,7 @@ public class GameController {
         return gameService.getGameById(gameId);
     }
 
-    @GetMapping("/game/create")
+    @GetMapping("/create")
     public GameDTO createGame() {
         return gameService.createGame();
     }
