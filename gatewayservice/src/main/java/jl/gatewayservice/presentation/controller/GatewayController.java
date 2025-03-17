@@ -5,12 +5,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jl.gatewayservice.application.dto.GameDTO;
 import jl.gatewayservice.application.dto.PlayerDTO;
 import jl.gatewayservice.application.service.GatewayService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Mono;
 
 @RestController
 @Tag(name = "Home", description = "Homepage Controller")
@@ -20,12 +18,6 @@ public class GatewayController {
     public GatewayController(GatewayService gatewayService) {
        this.gatewayService = gatewayService;
     }
-
-//    @Operation(summary = "Get the homepage")
-//    @GetMapping("/")
-//    public Mono<String> render() {
-//        return Mono.just("homepage");
-//    }
 
     @Operation(summary = "Get the gameDTO")
     @GetMapping("/game-service/{gameId}")
