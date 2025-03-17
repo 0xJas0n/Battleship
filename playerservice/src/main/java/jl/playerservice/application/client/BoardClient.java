@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @FeignClient(name = "boardservice", url = "http://localhost:30403")
 public interface BoardClient {
-    @GetMapping("/boards/create")
+    @GetMapping("/board/create")
     BoardDTO createBoard();
 }

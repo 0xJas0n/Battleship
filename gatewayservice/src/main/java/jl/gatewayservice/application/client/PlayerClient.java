@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(name = "playerservice", url = "http://localhost:30402")
 public interface PlayerClient {
-    @GetMapping("/players/{id}")
+    @GetMapping("/player/{id}")
     PlayerDTO getPlayerById(@PathVariable("id") Long id);
 
-    @GetMapping("/players/create")
+    @GetMapping("/player/create")
     PlayerDTO createPlayer(@RequestParam("name") String name);
 }

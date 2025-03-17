@@ -5,7 +5,7 @@ import jl.playerservice.application.service.PlayerService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/players")
+@RequestMapping("/player")
 public class PlayerController {
     private final PlayerService playerService;
 
