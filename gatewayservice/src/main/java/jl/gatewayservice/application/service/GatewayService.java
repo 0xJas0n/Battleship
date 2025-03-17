@@ -22,6 +22,10 @@ public class GatewayService {
         return gameClient.getGameById(gameId);
     }
 
+    public GameDTO createGame() {
+        return gameClient.createGame();
+    }
+
     public PlayerDTO createPlayer(@RequestParam("name") String name) {
         return playerClient.createPlayer(name);
     }

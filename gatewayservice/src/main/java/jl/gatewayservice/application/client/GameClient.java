@@ -9,4 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface GameClient {
     @GetMapping("/game/{id}")
     GameDTO getGameById(@PathVariable("id") Long id);
+
+    @GetMapping("/game/create")
+    GameDTO createGame();
 }

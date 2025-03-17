@@ -25,4 +25,11 @@ public class GameService {
 
         return new GameDTO(game.getId(), player1.id(), player2.id());
     }
+
+    public GameDTO createGame() {
+        GameEntity game = new GameEntity();
+        gameRepository.save(game);
+
+        return new GameDTO(game.getId(), game.getPlayer1Id(), game.getPlayer2Id());
+    }
 }
