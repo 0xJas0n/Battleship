@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "playerservice", url = "http://localhost:30402")
+@FeignClient(name = "playerservice", url = "http://localhost:30402", path = "/player")
 public interface PlayerClient {
-    @GetMapping("/player/{id}")
+    @GetMapping("/{id}")
     PlayerDTO getPlayerById(@PathVariable("id") Long id);
 
-    @GetMapping("/player/create")
+    @GetMapping("/create")
     PlayerDTO createPlayer(@RequestParam("name") String name);
 }

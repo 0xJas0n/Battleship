@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class BoardService {
@@ -36,5 +37,11 @@ public class BoardService {
         }
 
         return new BoardDTO(board.getId(), cells, ships);
+    }
+
+    public String displayBoard(Long gameId) {
+        BoardEntity board = boardRepository.findById(gameId).orElseThrow(NoSuchElementException::new);
+
+        return board.toString();
     }
 }

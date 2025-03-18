@@ -20,7 +20,7 @@ public class GatewayController {
     }
 
     @Operation(summary = "Get the Game by Id")
-    @GetMapping("/game-service/{gameId}")
+    @GetMapping("/game-service/game/{gameId}")
     public GameDTO getGameById(@PathVariable("gameId") Long gameId) {
         return gatewayService.getGameById(gameId);
     }
@@ -41,5 +41,11 @@ public class GatewayController {
     @GetMapping("/game-service/game/add-player")
     public GameDTO addPlayerToGame(@RequestParam("playerId") Long playerId, @RequestParam("gameId") Long gameId) {
         return gatewayService.addPlayerToGame(playerId, gameId);
+    }
+
+    @Operation(summary = "Display the Board")
+    @GetMapping("/board-service/board/display/{gameId}")
+    public String displayBoard(@PathVariable("gameId") Long gameId) {
+        return gatewayService.displayBoard(gameId);
     }
 }

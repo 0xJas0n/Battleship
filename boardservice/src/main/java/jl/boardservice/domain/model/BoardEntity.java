@@ -76,14 +76,22 @@ public class BoardEntity {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("  ");
+        // Add top border
+        sb.append("   +---------------------------------------+\n");
+
+        // Add column headers (numbers 0 to 9)
+        sb.append("   |"); // Space for row headers
         for (int col = 0; col < BOARD_SIZE; col++) {
-            sb.append(col).append(" ");
+            sb.append(" ").append(col).append(" |");
         }
         sb.append("\n");
 
+        // Add separator line
+        sb.append("   +---------------------------------------+\n");
+
+        // Add each row with row headers and cell states
         for (int row = 0; row < BOARD_SIZE; row++) {
-            sb.append(row).append(" ");
+            sb.append(row).append("  |"); // Row header
             for (int col = 0; col < BOARD_SIZE; col++) {
                 int finalRow = row;
                 int finalCol = col;
@@ -93,14 +101,25 @@ public class BoardEntity {
                         .findFirst()
                         .orElseThrow(() -> new RuntimeException("Cell not found"));
 
+                // Display cell state
                 if (cell.isHit()) {
-                    sb.append(cell.isShip() ? "X " : "O ");
+                    sb.append(cell.isShip() ? " X |" : " O |"); // X for hit ship, O for hit water
                 } else {
-                    sb.append(cell.isShip() ? "S " : ". ");
+                    sb.append(cell.isShip() ? " S |" : " . |"); // S for ship, . for water
                 }
             }
             sb.append("\n");
+
+            // Add separator line between rows
+            sb.append("   +---------------------------------------+\n");
         }
+
+        // Add a legend at the bottom
+        sb.append("\nLegend:\n");
+        sb.append("  . : Water (not hit)\n");
+        sb.append("  S : Ship (not hit)\n");
+        sb.append("  O : Water (hit)\n");
+        sb.append("  X : Ship (hit)\n");
 
         return sb.toString();
     }
