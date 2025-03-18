@@ -24,12 +24,12 @@ public class GameController {
         return gameService.getGameById(gameId);
     }
 
-    @GetMapping("/create")
+    @PostMapping("/create")
     public GameDTO createGame() {
         return gameService.createGame();
     }
 
-    @GetMapping("/add-player")
+    @PostMapping("/add-player")
     public GameDTO addPlayerToGame(@RequestParam("playerId") Long playerId, @RequestParam("gameId") Long gameId) throws Exception {
         GameEntity game = gameRepository.findById(gameId).orElseThrow(NoSuchElementException::new);
         Long player1Id = game.getPlayer1Id();

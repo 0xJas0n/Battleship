@@ -2,10 +2,7 @@ package jl.boardservice.presentation.controller;
 
 import jl.boardservice.application.dto.BoardDTO;
 import jl.boardservice.application.service.BoardService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/board")
@@ -16,7 +13,7 @@ public class BoardController {
         this.boardService = boardService;
     }
 
-    @GetMapping("/create")
+    @PostMapping("/create")
     BoardDTO createBoard() {
         return boardService.createBoard();
     }

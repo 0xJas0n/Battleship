@@ -18,7 +18,7 @@ public class PlayerController {
         return playerService.getPlayerById(id);
     }
 
-    @GetMapping("/create")
+    @PostMapping("/create")
     public PlayerDTO createPlayer(@RequestParam("name") String name) {
         return playerService.createPlayer(name);
     }

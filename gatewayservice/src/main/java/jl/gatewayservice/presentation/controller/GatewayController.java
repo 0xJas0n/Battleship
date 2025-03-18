@@ -5,10 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jl.gatewayservice.application.dto.GameDTO;
 import jl.gatewayservice.application.dto.PlayerDTO;
 import jl.gatewayservice.application.service.GatewayService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Tag(name = "Home", description = "Homepage Controller")
@@ -26,19 +23,19 @@ public class GatewayController {
     }
 
     @Operation(summary = "Create an empty Game")
-    @GetMapping("/game-service/game/create")
+    @PostMapping("/game-service/game/create")
     public GameDTO createGame() {
         return gatewayService.createGame();
     }
 
     @Operation(summary = "Create a new Player")
-    @GetMapping("/player-service/player/create")
+    @PostMapping("/player-service/player/create")
     public PlayerDTO createPlayer(@RequestParam("name") String name) {
         return gatewayService.createPlayer(name);
     }
 
     @Operation(summary = "Add a Player to a game")
-    @GetMapping("/game-service/game/add-player")
+    @PostMapping("/game-service/game/add-player")
     public GameDTO addPlayerToGame(@RequestParam("playerId") Long playerId, @RequestParam("gameId") Long gameId) {
         return gatewayService.addPlayerToGame(playerId, gameId);
     }
