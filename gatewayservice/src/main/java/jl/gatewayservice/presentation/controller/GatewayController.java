@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jl.gatewayservice.application.dto.GameDTO;
 import jl.gatewayservice.application.dto.PlayerDTO;
+import jl.gatewayservice.application.enums.ShipType;
 import jl.gatewayservice.application.service.GatewayService;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,5 +55,16 @@ public class GatewayController {
             @RequestParam("row") int row,
             @RequestParam("column") int column) {
         gatewayService.shootOpponentBoard(gameId, playerId, row, column);
+    }
+
+    @Operation(summary = "Place a ship for the given player.")
+    @PostMapping("/game-service/place-ship")
+    public void placeShip(
+            @RequestParam Long playerId,
+            @RequestParam ShipType shipType,
+            @RequestParam int row,
+            @RequestParam int column,
+            @RequestParam boolean isHorizontal) {
+        gatewayService.placeShip(playerId, shipType, row, column, isHorizontal);
     }
 }

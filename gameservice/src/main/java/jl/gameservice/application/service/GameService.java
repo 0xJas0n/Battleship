@@ -2,9 +2,13 @@ package jl.gameservice.application.service;
 
 import jl.gameservice.application.client.BoardClient;
 import jl.gameservice.application.client.PlayerClient;
+import jl.gameservice.application.dto.BoardDTO;
 import jl.gameservice.application.dto.GameDTO;
 import jl.gameservice.application.dto.PlayerDTO;
+import jl.gameservice.application.enums.ShipType;
+import jl.gameservice.domain.model.BoardEntity;
 import jl.gameservice.domain.model.GameEntity;
+import jl.gameservice.domain.model.PlayerEntity;
 import jl.gameservice.persistence.GameRepository;
 import org.springframework.stereotype.Service;
 
@@ -65,5 +69,12 @@ public class GameService {
         Long opponentBoardId = (playerId.equals(game.getPlayer1Id())) ? game.getPlayer2Id() : game.getPlayer1Id();
 
         boardClient.shootOpponentBoard(opponentBoardId, row, column);
+    }
+
+    public void placeShip(Long playerId, ShipType shipType, int row, int column, boolean isHorizontal) {
+        PlayerDTO player = playerClient.getPlayerById(playerId);
+        Long boardId = player.boardId();
+
+        boardClient.placeShip(boardId, shipType, row, column, isHorizontal);
     }
 }

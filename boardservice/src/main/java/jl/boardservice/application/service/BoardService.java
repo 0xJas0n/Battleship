@@ -3,6 +3,7 @@ package jl.boardservice.application.service;
 import jl.boardservice.application.dto.BoardDTO;
 import jl.boardservice.application.dto.CellDTO;
 import jl.boardservice.application.dto.ShipDTO;
+import jl.boardservice.application.enums.ShipType;
 import jl.boardservice.domain.model.BoardEntity;
 import jl.boardservice.domain.model.CellEntity;
 import jl.boardservice.domain.model.ShipEntity;
@@ -49,6 +50,13 @@ public class BoardService {
         BoardEntity board = boardRepository.findById(opponentBoardId).orElseThrow(NoSuchElementException::new);
 
         board.shootCell(row, column);
+        boardRepository.save(board);
+    }
+
+    public void placeShip(Long boardId, ShipType shipType, int row, int column, boolean isHorizontal) throws Exception {
+        BoardEntity board = boardRepository.findById(boardId).orElseThrow(NoSuchElementException::new);
+        board.placeShip(shipType, row, column, isHorizontal);
+
         boardRepository.save(board);
     }
 }

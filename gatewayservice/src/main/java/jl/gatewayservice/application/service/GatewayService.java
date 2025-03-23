@@ -5,6 +5,7 @@ import jl.gatewayservice.application.client.GameClient;
 import jl.gatewayservice.application.client.PlayerClient;
 import jl.gatewayservice.application.dto.GameDTO;
 import jl.gatewayservice.application.dto.PlayerDTO;
+import jl.gatewayservice.application.enums.ShipType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,5 +44,9 @@ public class GatewayService {
 
     public void shootOpponentBoard(Long gameId, Long playerId, int row, int column) {
         gameClient.shootOpponentBoard(gameId, playerId, row, column);
+    }
+
+    public void placeShip(Long playerId, ShipType shipType, int row, int column, boolean isHorizontal) {
+        gameClient.placeShip(playerId, shipType, row, column, isHorizontal);
     }
 }

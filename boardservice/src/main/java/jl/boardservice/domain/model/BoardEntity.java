@@ -2,6 +2,7 @@ package jl.boardservice.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jl.boardservice.application.enums.ShipType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -39,30 +40,6 @@ public class BoardEntity {
         }
     }
 
-    public void addShip(ShipEntity ship) throws Exception {
-        if (ship == null) {
-            throw new Exception("Ship cannot be null");
-        }
-
-        ship.setBoard(this);
-        ships.add(ship);
-
-        int startRow = ship.getStartRow();
-        int startCol = ship.getStartCol();
-        int shipSize = ship.getShipType().getSize();
-        boolean isHorizontal = ship.isHorizontal();
-
-        for (int i = 0; i < shipSize; i++) {
-            int row = isHorizontal ? startRow : startRow + i;
-            int col = isHorizontal ? startCol + i : startCol;
-
-            cells.stream()
-                    .filter(cell -> cell.getRow() == row && cell.getCol() == col)
-                    .findFirst()
-                    .ifPresent(cell -> cell.setShip(true));
-        }
-    }
-
     public void shootCell(int row, int col) throws Exception {
         CellEntity cell = cells.stream()
                 .filter(c -> c.getRow() == row && c.getCol() == col)
@@ -70,6 +47,20 @@ public class BoardEntity {
                 .orElseThrow(() -> new Exception("Cell not found"));
 
         cell.setHit(true);
+    }
+
+    public void placeShip(ShipType shipType, int row, int column, boolean isHorizontal) throws Exception {
+        int shipSize = shipType.getSize();
+
+        for (int i = 0; i < shipSize; i++) {
+            int currentRow = isHorizontal ? row : row + i;
+            int currentColumn = isHorizontal ? column + i : column;
+
+            cells.stream()
+                    .filter(cell -> cell.getRow() == currentRow && cell.getCol() == currentColumn)
+                    .findFirst()
+                    .ifPresent(cell -> cell.setShip(true));
+        }
     }
 
     @Override

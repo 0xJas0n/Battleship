@@ -1,6 +1,7 @@
 package jl.gameservice.presentation.controller;
 
 import jl.gameservice.application.dto.GameDTO;
+import jl.gameservice.application.enums.ShipType;
 import jl.gameservice.application.service.GameService;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,5 +36,16 @@ public class GameController {
             @RequestParam("row") int row,
             @RequestParam("column") int column) throws Exception {
         gameService.shootOpponentBoard(gameId, playerId, row, column);
+    }
+
+    @PostMapping("place-ship")
+    public void placeShip(
+            @RequestParam Long playerId,
+            @RequestParam ShipType shipType,
+            @RequestParam int row,
+            @RequestParam int column,
+            @RequestParam boolean isHorizontal
+    ) {
+        gameService.placeShip(playerId, shipType, row, column, isHorizontal);
     }
 }
