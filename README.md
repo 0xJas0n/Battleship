@@ -37,6 +37,10 @@ This will start the PostgreSQL databases on following ports:
 | Player service  | 30302 |
 | Board service   | 30303 |
 
+### Start the application
+
+Start all 4 services
+
 ### Stopping the Databases
 
 To stop all the PostgreSQL containers, run:
