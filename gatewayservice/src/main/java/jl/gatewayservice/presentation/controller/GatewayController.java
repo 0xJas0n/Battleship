@@ -58,13 +58,13 @@ public class GatewayController {
     }
 
     @Operation(summary = "Place a ship for the given player.")
-    @PostMapping("/game-service/place-ship")
+    @PostMapping("/game-service/game/place-ship")
     public void placeShip(
-            @RequestParam Long playerId,
-            @RequestParam ShipType shipType,
-            @RequestParam int row,
-            @RequestParam int column,
-            @RequestParam boolean isHorizontal) {
+            @RequestParam("playerId") Long playerId,
+            @RequestParam("shipType") ShipType shipType,
+            @RequestParam("row") int row,
+            @RequestParam("column") int column,
+            @RequestParam("isHorizontal") boolean isHorizontal) {
         gatewayService.placeShip(playerId, shipType, row, column, isHorizontal);
     }
 }

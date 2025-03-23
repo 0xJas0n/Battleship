@@ -26,12 +26,12 @@ public interface GameClient {
             @RequestParam("row") int row,
             @RequestParam("column") int column);
 
-    @PostMapping("/placeShip")
+    @PostMapping("/place-ship")
     void placeShip(
-            @RequestParam Long playerId,
-            @RequestParam ShipType shipType,
-            @RequestParam int row,
-            @RequestParam int col,
-            @RequestParam boolean isHorizontal
+            @RequestParam("playerId") Long playerId,
+            @RequestParam("shipType") ShipType shipType,
+            @RequestParam("row") int row,
+            @RequestParam("col") int column,
+            @RequestParam("isHorizontal") boolean isHorizontal
     );
 }

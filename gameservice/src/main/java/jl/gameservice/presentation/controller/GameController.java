@@ -38,13 +38,13 @@ public class GameController {
         gameService.shootOpponentBoard(gameId, playerId, row, column);
     }
 
-    @PostMapping("place-ship")
+    @PostMapping("/place-ship")
     public void placeShip(
-            @RequestParam Long playerId,
-            @RequestParam ShipType shipType,
-            @RequestParam int row,
-            @RequestParam int column,
-            @RequestParam boolean isHorizontal
+            @RequestParam("playerId") Long playerId,
+            @RequestParam("shipType") ShipType shipType,
+            @RequestParam("row") int row,
+            @RequestParam("col") int column,
+            @RequestParam("isHorizontal") boolean isHorizontal
     ) {
         gameService.placeShip(playerId, shipType, row, column, isHorizontal);
     }

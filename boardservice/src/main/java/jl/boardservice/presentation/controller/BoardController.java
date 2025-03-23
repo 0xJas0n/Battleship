@@ -33,11 +33,11 @@ public class BoardController {
     }
 
     @PostMapping("/place-ship")
-    void placeShip(@RequestParam Long boardId,
-                   @RequestParam ShipType shipType,
-                   @RequestParam int row,
-                   @RequestParam int column,
-                   @RequestParam boolean isHorizontal) throws Exception {
-        boardService.placeShip(boardId,shipType, row, column, isHorizontal);
+    void placeShip(@RequestParam("boardId") Long boardId,
+                   @RequestParam("shipType") ShipType shipType,
+                   @RequestParam("row") int row,
+                   @RequestParam("col") int column,
+                   @RequestParam("isHorizontal") boolean isHorizontal) throws Exception {
+        boardService.placeShip(boardId, shipType, row, column, isHorizontal);
     }
 }
