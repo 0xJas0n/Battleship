@@ -39,9 +39,16 @@ public class BoardService {
         return new BoardDTO(board.getId(), cells, ships);
     }
 
-    public String displayBoard(Long gameId) {
-        BoardEntity board = boardRepository.findById(gameId).orElseThrow(NoSuchElementException::new);
+    public String displayBoard(Long boardId) {
+        BoardEntity board = boardRepository.findById(boardId).orElseThrow(NoSuchElementException::new);
 
         return board.toString();
+    }
+
+    public void shootOpponentBoard(Long opponentBoardId, int row, int column) throws Exception {
+        BoardEntity board = boardRepository.findById(opponentBoardId).orElseThrow(NoSuchElementException::new);
+
+        board.shootCell(row, column);
+        boardRepository.save(board);
     }
 }

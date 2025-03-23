@@ -37,7 +37,11 @@ public class GatewayService {
         return playerClient.createPlayer(name);
     }
 
-    public String displayBoard(@PathVariable("gameId") Long gameId) {
-        return boardClient.displayBoard(gameId);
+    public String displayBoard(@PathVariable("boardId") Long boardId) {
+        return boardClient.displayBoard(boardId);
+    }
+
+    public void shootOpponentBoard(Long gameId, Long playerId, int row, int column) {
+        gameClient.shootOpponentBoard(gameId, playerId, row, column);
     }
 }

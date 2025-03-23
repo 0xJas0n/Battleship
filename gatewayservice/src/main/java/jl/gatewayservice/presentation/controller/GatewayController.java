@@ -13,7 +13,7 @@ public class GatewayController {
     private final GatewayService gatewayService;
 
     public GatewayController(GatewayService gatewayService) {
-       this.gatewayService = gatewayService;
+        this.gatewayService = gatewayService;
     }
 
     @Operation(summary = "Get the Game by Id")
@@ -41,8 +41,18 @@ public class GatewayController {
     }
 
     @Operation(summary = "Display the Board")
-    @GetMapping("/board-service/board/display/{gameId}")
-    public String displayBoard(@PathVariable("gameId") Long gameId) {
-        return gatewayService.displayBoard(gameId);
+    @GetMapping("/board-service/board/display/{boardId}")
+    public String displayBoard(@PathVariable("boardId") Long boardId) {
+        return gatewayService.displayBoard(boardId);
+    }
+
+    @Operation(summary = "Shoot the board of the given Players opponent")
+    @PostMapping("/game-service/game/shoot")
+    public void shootOpponentBoard(
+            @RequestParam("gameId") Long gameId,
+            @RequestParam("playerId") Long playerId,
+            @RequestParam("row") int row,
+            @RequestParam("column") int column) {
+        gatewayService.shootOpponentBoard(gameId, playerId, row, column);
     }
 }

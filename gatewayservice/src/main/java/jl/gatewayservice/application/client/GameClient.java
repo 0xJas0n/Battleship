@@ -17,4 +17,11 @@ public interface GameClient {
 
     @PostMapping("/add-player")
     GameDTO addPlayerToGame(@RequestParam("playerId") Long playerId, @RequestParam("gameId") Long gameId);
+
+    @PostMapping("/shoot")
+    void shootOpponentBoard(
+            @RequestParam("gameId") Long gameId,
+            @RequestParam("playerId") Long playerId,
+            @RequestParam("row") int row,
+            @RequestParam("column") int column);
 }

@@ -18,8 +18,16 @@ public class BoardController {
         return boardService.createBoard();
     }
 
-    @GetMapping("/display/{gameId}")
-    String displayBoard(@PathVariable("gameId") Long gameId) {
-        return boardService.displayBoard(gameId);
+    @GetMapping("/display/{boardId}")
+    String displayBoard(@PathVariable("boardId") Long boardId) {
+        return boardService.displayBoard(boardId);
+    }
+
+    @PostMapping("/shoot")
+    void shootOpponentBoard(
+            @RequestParam("opponentBoardId") Long opponentBoardId,
+            @RequestParam("row") int row,
+            @RequestParam("column") int column) throws Exception {
+        boardService.shootOpponentBoard(opponentBoardId, row, column);
     }
 }

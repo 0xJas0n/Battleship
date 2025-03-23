@@ -2,21 +2,15 @@ package jl.gameservice.presentation.controller;
 
 import jl.gameservice.application.dto.GameDTO;
 import jl.gameservice.application.service.GameService;
-import jl.gameservice.domain.model.GameEntity;
-import jl.gameservice.persistence.GameRepository;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/game")
 public class GameController {
     private final GameService gameService;
-    private final GameRepository gameRepository;
 
-    public GameController(GameService gameService, GameRepository gameRepository) {
+    public GameController(GameService gameService) {
         this.gameService = gameService;
-        this.gameRepository = gameRepository;
     }
 
     @GetMapping("/{gameId}")
@@ -31,24 +25,15 @@ public class GameController {
 
     @PostMapping("/add-player")
     public GameDTO addPlayerToGame(@RequestParam("playerId") Long playerId, @RequestParam("gameId") Long gameId) throws Exception {
-        GameEntity game = gameRepository.findById(gameId).orElseThrow(NoSuchElementException::new);
-        Long player1Id = game.getPlayer1Id();
-        Long player2Id = game.getPlayer2Id();
+        return gameService.addPlayerToGame(playerId, gameId);
+    }
 
-        if (playerId.equals(player1Id) || playerId.equals(player2Id)) {
-            throw new Exception("Player is already in the game");
-        }
-
-        if (player1Id == null) {
-            game.setPlayer1Id(playerId);
-        } else if (player2Id == null) {
-            game.setPlayer2Id(playerId);
-        } else {
-            throw new Exception("Game already full");
-        }
-
-        gameRepository.save(game);
-
-        return new GameDTO(gameId, game.getPlayer1Id(), game.getPlayer2Id());
+    @PostMapping("/shoot")
+    public void shootOpponentBoard(
+            @RequestParam("gameId") Long gameId,
+            @RequestParam("playerId") Long playerId,
+            @RequestParam("row") int row,
+            @RequestParam("column") int column) throws Exception {
+        gameService.shootOpponentBoard(gameId, playerId, row, column);
     }
 }

@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient(name = "boardservice", url = "http://localhost:30403", path = "/board")
 public interface BoardClient {
-    @GetMapping("/display/{gameId}")
-    String displayBoard(@PathVariable("gameId") Long gameId);
+    @GetMapping("/display/{boardId}")
+    String displayBoard(@PathVariable("boardId") Long boardId);
 }
