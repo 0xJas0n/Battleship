@@ -14,6 +14,8 @@ This guide will help you set up and run the application.
 - Create Player 1
 - Create Player 2
 - Add Players to Game
+- Place Ships for each Player
+- Shoot opponent board
 
 ## Prerequisites
 
