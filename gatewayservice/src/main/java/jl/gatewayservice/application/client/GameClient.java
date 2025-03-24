@@ -1,5 +1,6 @@
 package jl.gatewayservice.application.client;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import jl.gatewayservice.application.dto.GameDTO;
 import jl.gatewayservice.application.enums.ShipType;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(name = "gameservice", url = "http://localhost:30401", path = "/game")
+@CircuitBreaker(name = "gameClient")
 public interface GameClient {
     @GetMapping("/{id}")
     GameDTO getGameById(@PathVariable("id") Long id);

@@ -1,9 +1,12 @@
 package jl.boardservice.presentation.controller;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import jl.boardservice.application.dto.BoardDTO;
 import jl.boardservice.application.enums.ShipType;
 import jl.boardservice.application.service.BoardService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/board")
@@ -15,12 +18,14 @@ public class BoardController {
     }
 
     @PostMapping("/create")
-    BoardDTO createBoard() {
+    @CircuitBreaker(name = "boardClient", fallbackMethod = "createBoardFallback")
+    public BoardDTO createBoard() {
         return boardService.createBoard();
     }
 
     @GetMapping("/display/{boardId}")
-    String displayBoard(@PathVariable("boardId") Long boardId) {
+    @CircuitBreaker(name = "boardClient", fallbackMethod = "displayBoardFallback")
+    public String displayBoard(@PathVariable("boardId") Long boardId) {
         return boardService.displayBoard(boardId);
     }
 
@@ -39,5 +44,13 @@ public class BoardController {
                    @RequestParam("col") int column,
                    @RequestParam("isHorizontal") boolean isHorizontal) throws Exception {
         boardService.placeShip(boardId, shipType, row, column, isHorizontal);
+    }
+
+    private BoardDTO createBoardFallback(Exception e) {
+        return new BoardDTO(null, List.of(), List.of());
+    }
+
+    private String displayBoardFallback(Long boardId, Exception e) {
+        return "Board service is currently unavailable. Please try again later.";
     }
 }

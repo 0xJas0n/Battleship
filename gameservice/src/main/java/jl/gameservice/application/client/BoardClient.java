@@ -1,11 +1,13 @@
 package jl.gameservice.application.client;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import jl.gameservice.application.enums.ShipType;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(name = "boardservice", url = "http://localhost:30403", path = "/board")
+@CircuitBreaker(name = "boardClient")
 public interface BoardClient {
     @PostMapping("/shoot")
     void shootOpponentBoard(

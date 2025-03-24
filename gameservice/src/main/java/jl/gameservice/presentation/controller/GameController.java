@@ -1,5 +1,6 @@
 package jl.gameservice.presentation.controller;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import jl.gameservice.application.dto.GameDTO;
 import jl.gameservice.application.enums.ShipType;
 import jl.gameservice.application.service.GameService;
@@ -15,11 +16,13 @@ public class GameController {
     }
 
     @GetMapping("/{gameId}")
+    @CircuitBreaker(name = "gameClient", fallbackMethod = "getGameByIdFallback")
     public GameDTO getGameById(@PathVariable("gameId") Long gameId) {
         return gameService.getGameById(gameId);
     }
 
     @PostMapping("/create")
+    @CircuitBreaker(name = "gameClient", fallbackMethod = "createGameFallback")
     public GameDTO createGame() {
         return gameService.createGame();
     }
@@ -47,5 +50,13 @@ public class GameController {
             @RequestParam("isHorizontal") boolean isHorizontal
     ) {
         gameService.placeShip(playerId, shipType, row, column, isHorizontal);
+    }
+
+    private GameDTO getGameByIdFallback(Long gameId, Exception e) {
+        return new GameDTO(null, null, null);
+    }
+
+    private GameDTO createGameFallback(Exception e) {
+        return new GameDTO(null, null, null);
     }
 }
