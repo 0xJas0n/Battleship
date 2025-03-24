@@ -49,3 +49,7 @@ To stop all the PostgreSQL containers, run:
 ```bash
 docker-compose down
 ```
+
+### Circuit breaker
+
+To check on the Circuit breakers you can check the [Status page](http://localhost:30400/actuator/circuitbreakers)
