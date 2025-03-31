@@ -53,3 +53,8 @@ docker-compose down
 ### Circuit breaker
 
 To check on the Circuit breakers you can check the [Status page](http://localhost:30400/actuator/circuitbreakers)
+
+
+### Messaging
+
+On game creation messaging will handle the logging from the game service back to the gateway service.

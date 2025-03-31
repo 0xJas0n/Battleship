@@ -2,14 +2,12 @@ package jl.gameservice.application.service;
 
 import jl.gameservice.application.client.BoardClient;
 import jl.gameservice.application.client.PlayerClient;
-import jl.gameservice.application.dto.BoardDTO;
 import jl.gameservice.application.dto.GameDTO;
 import jl.gameservice.application.dto.PlayerDTO;
 import jl.gameservice.application.enums.ShipType;
-import jl.gameservice.domain.model.BoardEntity;
 import jl.gameservice.domain.model.GameEntity;
-import jl.gameservice.domain.model.PlayerEntity;
 import jl.gameservice.persistence.GameRepository;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
@@ -20,11 +18,13 @@ public class GameService {
     private final GameRepository gameRepository;
     private final PlayerClient playerClient;
     private final BoardClient boardClient;
+    private final RabbitTemplate rabbitTemplate;
 
-    public GameService(GameRepository gameRepository, PlayerClient playerClient, BoardClient boardClient) {
+    public GameService(GameRepository gameRepository, PlayerClient playerClient, BoardClient boardClient, RabbitTemplate rabbitTemplate) {
         this.gameRepository = gameRepository;
         this.playerClient = playerClient;
         this.boardClient = boardClient;
+        this.rabbitTemplate = rabbitTemplate;
     }
 
     public GameDTO getGameById(Long id) {
@@ -38,6 +38,8 @@ public class GameService {
     public GameDTO createGame() {
         GameEntity game = new GameEntity();
         gameRepository.save(game);
+
+        rabbitTemplate.convertAndSend("game.events", "game.created", game.getId());
 
         return new GameDTO(game.getId(), game.getPlayer1Id(), game.getPlayer2Id());
     }

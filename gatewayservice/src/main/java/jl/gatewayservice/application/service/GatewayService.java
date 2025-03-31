@@ -6,6 +6,7 @@ import jl.gatewayservice.application.client.PlayerClient;
 import jl.gatewayservice.application.dto.GameDTO;
 import jl.gatewayservice.application.dto.PlayerDTO;
 import jl.gatewayservice.application.enums.ShipType;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,11 @@ public class GatewayService {
         this.gameClient = gameClient;
         this.playerClient = playerClient;
         this.boardClient = boardClient;
+    }
+
+    @RabbitListener(queues = "game.created.queue")
+    public void handleGameCreated(Long gameId) {
+        System.out.println("Received game created event for game ID: " + gameId);
     }
 
     public GameDTO getGameById(@PathVariable("gameId") Long gameId) {
