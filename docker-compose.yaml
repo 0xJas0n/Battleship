@@ -47,6 +47,18 @@ services:
         volumes:
             - board_db_data:/var/lib/postgresql/data
 
+    eureka-db:
+        image: postgres:latest
+        container_name: jl-eureka-db
+        restart: always
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+        ports:
+            - '30304:5432'
+        volumes:
+            - eureka_db_data:/var/lib/postgresql/data
+
     rabbitmq:
         image: rabbitmq:3-management
         container_name: jl-rabbitmq
@@ -67,6 +79,8 @@ volumes:
     player_db_data:
         driver: local
     board_db_data:
+        driver: local
+    eureka_db_data:
         driver: local
     rabbitmq_data:
         driver: local
