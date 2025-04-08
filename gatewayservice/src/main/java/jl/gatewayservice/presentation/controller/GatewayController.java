@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class GatewayController {
     private final GatewayService gatewayService;
 
+
     public GatewayController(GatewayService gatewayService) {
         this.gatewayService = gatewayService;
     }
