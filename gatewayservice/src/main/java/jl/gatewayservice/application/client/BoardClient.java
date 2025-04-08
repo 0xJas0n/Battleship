@@ -5,7 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name = "boardservice", url = "http://localhost:30403", path = "/board")
+@FeignClient(name = "boardservice", path = "/board")
 @CircuitBreaker(name = "boardClient")
 public interface BoardClient {
     @GetMapping("/display/{boardId}")

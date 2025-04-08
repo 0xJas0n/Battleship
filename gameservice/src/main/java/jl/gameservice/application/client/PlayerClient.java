@@ -6,8 +6,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name = "playerservice", url = "http://localhost:30402")
+@FeignClient(name = "playerservice", path = "/player")
 @CircuitBreaker(name = "playerClient")
 public interface PlayerClient {
-    @GetMapping("/player/{id}")
+    @GetMapping("/{id}")
     PlayerDTO getPlayerById(@PathVariable("id") Long id);}

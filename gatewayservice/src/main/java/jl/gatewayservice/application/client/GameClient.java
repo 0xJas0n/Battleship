@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "gameservice", url = "http://localhost:30401", path = "/game")
+@FeignClient(name = "gameservice", path = "/game")
 @CircuitBreaker(name = "gameClient")
 public interface GameClient {
     @GetMapping("/{id}")
