@@ -1,0 +1,118 @@
+spring:
+    application:
+        name: gateway
+    jpa:
+        hibernate:
+            ddl-auto: update
+        generate-ddl: true
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+        show-sql: true
+    datasource:
+        driverClassName: org.postgresql.Driver
+        url: jdbc:postgresql://localhost:30300/postgres
+        username: postgres
+        password: postgres
+    main:
+        web-application-type: reactive
+    cloud:
+        gateway:
+            discovery:
+                locator:
+                    enabled: false
+                    lower-case-service-id: true
+            globalcors:
+                corsConfigurations:
+                    '[/**]':
+                        allowedOrigins: "*"
+                        allowedMethods:
+                            - GET
+                            - POST
+                        allowedHeaders: "*"
+            routes:
+                - id: openapi
+                  uri: lb://GATEWAY
+                  predicates:
+                      - Path=/v3/api-docs/**
+                  filters:
+                      - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
+                - id: game-service
+                  uri: lb://GAMESERVICE
+                  predicates:
+                      - Path=/game/**
+                - id: player-service
+                  uri: lb://PLAYERSERVICE
+                  predicates:
+                      - Path=/player/**
+                - id: board-service
+                  uri: lb://BOARDSERVICE
+                  predicates:
+                      - Path=/board/**
+
+    rabbitmq:
+        host: localhost
+        port: 5672
+        username: guest
+        password: guest
+        listener:
+            simple:
+                retry:
+                    enabled: true
+                    max-attempts: 3
+                    initial-interval: 1000
+                    multiplier: 2.0
+                    max-interval: 10000
+
+server:
+    port: 30400
+    forward-headers-strategy: framework
+
+resilience4j:
+    circuitbreaker:
+        configs:
+            default:
+                failureRateThreshold: 50
+                waitDurationInOpenState: 5000
+                permittedNumberOfCallsInHalfOpenState: 3
+                slidingWindowSize: 10
+                minimumNumberOfCalls: 5
+                automaticTransitionFromOpenToHalfOpenEnabled: true
+                slidingWindowType: COUNT_BASED
+        instances:
+            boardClient:
+                failureRateThreshold: 50
+            gameClient:
+                failureRateThreshold: 50
+            playerClient:
+                failureRateThreshold: 50
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: health,circuitbreakers
+    endpoint:
+        health:
+            show-details: always
+
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:30404/eureka/
+
+springdoc:
+    api-docs:
+        enabled: true
+    swagger-ui:
+        enabled: true
+        config-url: /v3/api-docs/swagger-config
+        try-it-out-enabled: true
+        urls:
+            - url: /v3/api-docs
+              name: API Gateway Service
+            - name: Board Service
+              url: /board/v3/api-docs
+            - name: Game Service
+              url: /game/v3/api-docs
+            - name: Player Service
+              url: /player/v3/api-docs
+        use-root-path: true
