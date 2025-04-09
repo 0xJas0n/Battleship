@@ -41,7 +41,8 @@ This will start the PostgreSQL databases on following ports:
 
 ### Start the application
 
-Start all 4 services
+- Make sure to start the Eureka service first
+- Start all the other services
 
 ### Stopping the Databases
 
@@ -53,7 +54,6 @@ docker-compose down
 ### Circuit breaker
 
 To check on the Circuit breakers you can check the [Status page](http://localhost:30400/actuator/circuitbreakers)
-
 
 ### Messaging
 
